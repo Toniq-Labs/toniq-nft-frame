@@ -195,8 +195,6 @@ export function loadNftDimensions(
         return undefined;
     }
 
-    console.log({originalNftDimensions});
-
     const resizedNftDimensions = setScaledNftSize(
         nftConfig,
         nftMetadata.nftType,

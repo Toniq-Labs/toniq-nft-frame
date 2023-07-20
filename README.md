@@ -1,3 +1,1 @@
-# toniq-nft-frame
-
-Easy to use and secure iframes for displaying inscriptions of many different types.
+./packages/toniq-nft-frame/README.md
