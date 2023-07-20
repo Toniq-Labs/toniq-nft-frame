@@ -2,5 +2,26 @@
 
 Easy to use and secure iframes for displaying inscriptions of many different types.
 
-- npm package: https://www.npmjs.com/package/@toniq-labs/toniq-nft-frame
-- demo: https://toniq-nft-frame-demo.netlify.app
+-   npm package: https://www.npmjs.com/package/@toniq-labs/toniq-nft-frame
+-   demo: https://toniq-nft-frame-demo.netlify.app
+-   source code: https://github.com/Toniq-Labs/toniq-nft-frame
+
+# How it works and how to use it
+
+There are two main parts here:
+
+-   the custom web element: `<toniq-nft-frame>`
+    -   This element is published on npm here: https://www.npmjs.com/package/@toniq-labs/toniq-nft-frame
+    -   It can be used by installing it: `npm i @toniq-labs/toniq-nft-frame`, and then importing it's main script somewhere in your run-time, and then placing it in your DOM with `toniq-nft-frame`.
+    -   You'll need to pass properties to this element using Javascript properties on the element instance. All the properties are listed in the types exported by [`nft-config.ts`](https://github.com/Toniq-Labs/toniq-nft-frame/tree/dev/packages/toniq-nft-frame/src/nft-config.ts).
+    -   Host the iframe code mentioned below on a separate domain, and pass the path to the iframe code in to this custom element to the `childFrameUrl` property.
+-   the iframe code
+    -   The iframe code is produced by the `npm run build` command and is then located at `packages/toniq-nft-frame/iframe-dist` within this repo.
+    -   This code will need to be hosted on a domain separate from your main website, but on the same domain as all the NFTs / images that it will be loading.
+
+# Content Security Policies
+
+These have been tested to work:
+
+-   parent domain: `default-src <the domain of your hosted iframe> 'unsafe-inline' 'self' blob: data:`
+-   iframe domain: `default-src 'unsafe-inline' 'self' blob: data:`
