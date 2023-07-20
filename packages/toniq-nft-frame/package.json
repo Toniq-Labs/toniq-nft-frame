@@ -17,7 +17,7 @@
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "scripts": {
-        "build": "virmator frontend build",
+        "build": "virmator frontend build && cp _headers ./iframe-dist",
         "compile": "virmator compile && npm run build",
         "preview": "virmator frontend preview",
         "start": "virmator frontend",

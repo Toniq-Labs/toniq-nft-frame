@@ -1,0 +1,2 @@
+/*
+    Content-Security-Policy: default-src 'unsafe-inline' 'self' blob: data:

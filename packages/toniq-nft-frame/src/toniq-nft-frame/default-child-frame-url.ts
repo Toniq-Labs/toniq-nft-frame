@@ -7,7 +7,7 @@ function isDev(): boolean {
     return devHosts.includes(globalThis.location.hostname);
 }
 
-const prodFrameUrl = 'https://idk-yet.example.com';
+const prodFrameUrl = 'https://toniq-nft-frame.netlify.app';
 const devFrameUrl = 'http://localhost:5284';
 
 export const defaultChildFrameUrl = isDev() ? devFrameUrl : prodFrameUrl;

@@ -8,7 +8,7 @@
         "url": "https://github.com/Toniq-Labs"
     },
     "scripts": {
-        "build": "virmator frontend build",
+        "build": "virmator frontend build && cp _headers ./iframe-dist",
         "compile": "echo \"Nothing to compile in the demo\" && exit 0",
         "preview": "virmator frontend preview",
         "start": "npm install && virmator frontend",
