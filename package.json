@@ -11,7 +11,7 @@
         "packages/*"
     ],
     "scripts": {
-        "build": "npm run compile && mono-vir for-each-async npm run build",
+        "build": "npm run compile && npm run build --workspaces --if-present",
         "compile": "mono-vir for-each npm run compile",
         "docs:update": "virmator code-in-markdown",
         "format": "virmator format",
@@ -19,7 +19,7 @@
         "publish": "virmator publish \"npm run compile && npm run test:all\"",
         "scripts": "npm run execute --workspace @toniq-labs/toniq-nft-frame-scripts",
         "start": "npm install && npm run scripts && concurrently --colors -c auto --names demo,iframe,compilation \"npm start --workspace @toniq-labs/toniq-nft-frame-demo\" \"npm start --workspace @toniq-labs/toniq-nft-frame\" \"nodemon --quiet --on-change-only --config configs/nodemon.json\"",
-        "test": "mono-vir for-each-async npm test",
+        "test": "npm run compile && mono-vir for-each-async npm test",
         "test:all": "concurrently --colors --kill-others-on-fail -c auto --names types,tests,spelling,format,docs \"npm run test:types\" \"npm run test\" \"npm run test:spelling\" \"npm run test:format\" \"npm run test:docs\"",
         "test:docs": "virmator code-in-markdown check",
         "test:format": "virmator format check",

@@ -3,7 +3,6 @@
     "version": "0.0.0",
     "private": true,
     "scripts": {
-        "build": "virmator frontend build",
         "compile": "virmator compile && npm run execute",
         "execute": "ts-node src/cli/execute.ts",
         "test": "virmator test"
