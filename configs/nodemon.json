@@ -1,0 +1,6 @@
+{
+    "exec": "cd packages/toniq-nft-frame && npm run compile",
+    "exitcrash": false,
+    "ext": "ts",
+    "watch": ["./packages/toniq-nft-frame/src"]
+}

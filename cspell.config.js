@@ -4,10 +4,13 @@ module.exports = {
     ...baseConfig,
     ignorePaths: [
         ...baseConfig.ignorePaths,
-        'packages/toniq-nft/iframe-dist',
+        'packages/toniq-nft-frame/iframe-dist',
+        'packages/demo/www-static/safari-pinned-tab.svg',
     ],
     words: [
         ...baseConfig.words,
         'toniq',
+        'bioniq',
+        'bitgen',
     ],
 };

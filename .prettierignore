@@ -6,4 +6,4 @@ node_modules/
 package-lock.json
 src/all-files-for-code-coverage.test.ts
 
-packages/toniq-nft/iframe-dist
+packages/toniq-nft-frame/iframe-dist

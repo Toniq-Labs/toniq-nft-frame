@@ -1,5 +1,5 @@
 {
-    "name": "nft-frame-root",
+    "name": "@toniq-labs/toniq-nft-frame-mono-repo-root",
     "version": "0.0.0",
     "private": true,
     "license": "MIT",
@@ -11,13 +11,14 @@
         "packages/*"
     ],
     "scripts": {
-        "build": "virmator frontend build",
+        "build": "npm run compile && mono-vir for-each-async npm run build",
         "compile": "mono-vir for-each npm run compile",
         "docs:update": "virmator code-in-markdown",
         "format": "virmator format",
         "preview": "virmator frontend preview",
         "publish": "virmator publish \"npm run compile && npm run test:all\"",
-        "start": "npm install && virmator frontend",
+        "scripts": "npm run execute --workspace @toniq-labs/toniq-nft-frame-scripts",
+        "start": "npm install && npm run scripts && concurrently --colors -c auto --names demo,iframe,compilation \"npm start --workspace @toniq-labs/toniq-nft-frame-demo\" \"npm start --workspace @toniq-labs/toniq-nft-frame\" \"nodemon --quiet --on-change-only --config configs/nodemon.json\"",
         "test": "mono-vir for-each-async npm test",
         "test:all": "concurrently --colors --kill-others-on-fail -c auto --names types,tests,spelling,format,docs \"npm run test:types\" \"npm run test\" \"npm run test:spelling\" \"npm run test:format\" \"npm run test:docs\"",
         "test:docs": "virmator code-in-markdown check",
@@ -26,10 +27,12 @@
         "test:types": "mono-vir for-each-async tsc --noEmit"
     },
     "devDependencies": {
+        "concurrently": "^8.2.0",
         "cspell": "^6.31.2",
         "esbuild": "^0.18.14",
         "markdown-code-example-inserter": "^0.3.1",
         "mono-vir": "^0.1.4",
+        "nodemon": "^3.0.1",
         "npm-check-updates": "^16.10.16",
         "prettier": "^2.8.8",
         "prettier-plugin-interpolated-html-tags": "^0.0.4",
@@ -39,6 +42,6 @@
         "prettier-plugin-packagejson": "^2.4.5",
         "prettier-plugin-sort-json": "^1.0.0",
         "prettier-plugin-toml": "^0.3.1",
-        "virmator": "^7.2.2"
+        "virmator": "^7.2.4"
     }
 }
