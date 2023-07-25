@@ -24,20 +24,23 @@ export const defaultToniqNtState = {
     clearIframe: false,
     childIframeLoading: asyncProp({
         async updateCallback(
-            inputs: {
+            triggers: {
+                isIframeReady: boolean;
+            } & NftConfig,
+            extraInputs: {
                 iframeElement: HTMLIFrameElement | undefined;
                 initIframe: (iframe: HTMLIFrameElement) => void;
                 onNftLoaded: (dimensions: NftAllData) => void;
                 onError: (error: Error) => void;
-            } & NftConfig,
+            },
         ): Promise<void> {
-            if (!inputs.nftUrl) {
+            if (!triggers.nftUrl) {
                 /** Don't resolve this promise because we're still waiting on an NFT url. */
                 return new Promise(() => {});
             }
 
             try {
-                if (!inputs.iframeElement) {
+                if (!triggers.isIframeReady || !extraInputs.iframeElement) {
                     /**
                      * Don't resolve this promise because we're still waiting on the iframe to show
                      * up.
@@ -45,28 +48,30 @@ export const defaultToniqNtState = {
                     return new Promise(() => {});
                 }
 
-                const childOrigin = extractOrigin(inputs.childFrameUrl || defaultChildFrameUrl);
+                const childOrigin = extractOrigin(triggers.childFrameUrl || defaultChildFrameUrl);
 
-                const timeoutMs: number = inputs.timeoutMs || defaultTimeoutMs;
+                const timeoutMs: number = triggers.timeoutMs || defaultTimeoutMs;
 
-                const waiting = waitForFrameLoad(inputs.iframeElement);
+                const waiting = waitForFrameLoad(extraInputs.iframeElement);
 
-                inputs.initIframe(inputs.iframeElement);
+                extraInputs.initIframe(extraInputs.iframeElement);
                 await waiting;
 
                 await wrapPromiseInTimeout(
                     timeoutMs,
                     handleChildIframe(
+                        triggers,
                         {
-                            ...inputs,
-                            iframeElement: inputs.iframeElement,
+                            ...extraInputs,
+                            /** This property is split out for type guarding purposes. */
+                            iframeElement: extraInputs.iframeElement,
                         },
                         childOrigin,
                         timeoutMs,
                     ),
                 );
             } catch (error) {
-                inputs.onError(ensureError(error));
+                extraInputs.onError(ensureError(error));
                 throw error;
             }
         },
@@ -82,12 +87,13 @@ const retryDelays: ReadonlyArray<number> = [
 ];
 
 async function handleChildIframe(
-    inputs: {
-        iframeElement: HTMLIFrameElement;
+    inputs: NftConfig,
+    extraInputs: {
         initIframe: (iframe: HTMLIFrameElement) => void;
         onNftLoaded: (dimensions: NftAllData) => void;
         onError: (error: Error) => void;
-    } & NftConfig,
+        iframeElement: HTMLIFrameElement;
+    },
     childOrigin: string,
     timeoutMs: number,
 ): Promise<void> {
@@ -102,7 +108,7 @@ async function handleChildIframe(
             const newNftData = (
                 await nftFrameIframeMessenger.sendMessageToChild({
                     childOrigin,
-                    iframeElement: inputs.iframeElement,
+                    iframeElement: extraInputs.iframeElement,
                     message: {
                         type: NftIframeMessageTypeEnum.LoadNft,
                         data: nftConfigForIframe,
@@ -130,7 +136,7 @@ async function handleChildIframe(
             ) {
                 latestNftData = newNftData;
 
-                inputs.onNftLoaded(latestNftData);
+                extraInputs.onNftLoaded(latestNftData);
             }
 
             if (!doesNftNeedMoreTimeToLoadMaybe(latestNftData.nftType)) {
@@ -144,10 +150,10 @@ async function handleChildIframe(
              * The below isConnected checks are required to account for the element potentially
              * being removed from the DOM.
              */
-            if (delayTillNextAttempt != undefined && inputs.iframeElement.isConnected) {
+            if (delayTillNextAttempt != undefined && extraInputs.iframeElement.isConnected) {
                 /** Account for the NFT size potentially changing as child JS is loaded and executed. */
                 setTimeout(async () => {
-                    if (inputs.iframeElement.isConnected) {
+                    if (extraInputs.iframeElement.isConnected) {
                         getNftDataFromChild();
                     }
                 }, delayTillNextAttempt);

@@ -134,63 +134,59 @@ export const ToniqNftFrame = defineElement<NftConfig>()({
         });
     },
     renderCallback({state, inputs, updateState, host, dispatch, events}) {
-        updateState({
-            childIframeLoading: {
-                serializableTrigger: {
-                    ...inputs,
-                    initIframe(iframe: HTMLIFrameElement) {
-                        dispatch(new events.settle(false));
-                        iframe.src = inputs.childFrameUrl || defaultChildFrameUrl;
-                        host.classList.remove(MutatedClassesEnum.HideLoading);
+        state.childIframeLoading.updateTrigger(
+            {
+                ...inputs,
+                isIframeReady: !!state.iframeElement,
+            },
+            {
+                initIframe(iframe: HTMLIFrameElement) {
+                    dispatch(new events.settle(false));
+                    iframe.src = inputs.childFrameUrl || defaultChildFrameUrl;
+                    host.classList.remove(MutatedClassesEnum.HideLoading);
+                    host.classList.remove(MutatedClassesEnum.VerticallyCenter);
+                },
+                iframeElement: state.iframeElement,
+                onNftLoaded(nftData) {
+                    const frameConstraintDiv = host.shadowRoot!.querySelector('.frame-constraint');
+                    if (!(frameConstraintDiv instanceof HTMLElement)) {
+                        throw new Error(`Could not find frame constraint div.`);
+                    }
+
+                    frameConstraintDiv.style.width = addPx(Math.floor(nftData.dimensions.width));
+                    frameConstraintDiv.style.height = addPx(Math.floor(nftData.dimensions.height));
+
+                    const hostSize: Dimensions = clampDimensions({
+                        min: inputs.min,
+                        max: inputs.max,
+                        box: nftData.dimensions,
+                    });
+
+                    if (nftData.dimensions.height < hostSize.height) {
+                        host.classList.add(MutatedClassesEnum.VerticallyCenter);
+                    } else {
                         host.classList.remove(MutatedClassesEnum.VerticallyCenter);
-                    },
-                    iframeElement: state.iframeElement,
-                    onNftLoaded(nftData) {
-                        const frameConstraintDiv =
-                            host.shadowRoot!.querySelector('.frame-constraint');
-                        if (!(frameConstraintDiv instanceof HTMLElement)) {
-                            throw new Error(`Could not find frame constraint div.`);
-                        }
+                    }
 
-                        frameConstraintDiv.style.width = addPx(
-                            Math.floor(nftData.dimensions.width),
-                        );
-                        frameConstraintDiv.style.height = addPx(
-                            Math.floor(nftData.dimensions.height),
-                        );
+                    host.style.width = addPx(hostSize.width);
+                    host.style.height = addPx(hostSize.height);
 
-                        const hostSize: Dimensions = clampDimensions({
-                            min: inputs.min,
-                            max: inputs.max,
-                            box: nftData.dimensions,
-                        });
+                    dispatch(new events.settle(true));
+                    dispatch(new events.nftDataLoad(nftData));
+                    host.classList.add(MutatedClassesEnum.HideLoading);
 
-                        if (nftData.dimensions.height < hostSize.height) {
-                            host.classList.add(MutatedClassesEnum.VerticallyCenter);
-                        } else {
-                            host.classList.remove(MutatedClassesEnum.VerticallyCenter);
-                        }
+                    updateState({
+                        latestChildIframeData: nftData,
+                    });
 
-                        host.style.width = addPx(hostSize.width);
-                        host.style.height = addPx(hostSize.height);
-
-                        dispatch(new events.settle(true));
-                        dispatch(new events.nftDataLoad(nftData));
-                        host.classList.add(MutatedClassesEnum.HideLoading);
-
-                        updateState({
-                            latestChildIframeData: nftData,
-                        });
-
-                        (host as any).debugData = nftData;
-                    },
-                    onError(error: Error) {
-                        console.error(error);
-                        dispatch(new events.error(error));
-                    },
+                    (host as any).debugData = nftData;
+                },
+                onError(error: Error) {
+                    console.error(error);
+                    dispatch(new events.error(error));
                 },
             },
-        });
+        );
 
         if (state.clearIframe) {
             requestAnimationFrame(() => {

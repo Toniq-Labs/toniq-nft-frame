@@ -1,5 +1,5 @@
 import {isTruthy} from '@augment-vir/common';
-import {html, templateToString} from 'element-vir';
+import {convertTemplateToString, html} from 'element-vir';
 import {NftConfigForChildIframe} from '../nft-config';
 import {shouldAllowScrolling} from '../toniq-nft-frame/nft-interactions';
 import {Dimensions, calculateRatio, clampDimensions, scaleToConstraints} from '../util/dimensions';
@@ -148,11 +148,13 @@ export function setTemplateHtml(nftMetadata: NftMetadata, nftConfig: NftConfigFo
         nftMetadata.templateString,
         nftConfig.extraHtml,
     ]
-        .map((entry) => (!entry || typeof entry === 'string' ? entry : templateToString(entry)))
+        .map((entry) =>
+            !entry || typeof entry === 'string' ? entry : convertTemplateToString(entry),
+        )
         .filter(isTruthy);
 
     htmlElement.innerHTML = newHtmlEntries.join('\n');
-    document.head.innerHTML += templateToString(iframeStyleElement);
+    document.head.innerHTML += convertTemplateToString(iframeStyleElement);
 
     Array.from(document.querySelectorAll('script')).forEach((oldScript) => {
         if (oldScript === thisScript) {

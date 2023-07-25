@@ -1,4 +1,4 @@
-import {TemplateResult, html, templateToString} from 'element-vir';
+import {TemplateResult, convertTemplateToString, html} from 'element-vir';
 import {NftConfig} from '../nft-config';
 import {isJson} from '../util/json';
 import {LoadedNftData, loadNftData} from './nft-data-cache';
@@ -161,7 +161,7 @@ export async function getNftMetadata({
     });
 
     const nftMetadata: NftMetadata = {
-        templateString: typeof template === 'string' ? template : templateToString(template),
+        templateString: typeof template === 'string' ? template : convertTemplateToString(template),
         nftUrl: loadedNftData.blobUrl,
         nftType,
     };
