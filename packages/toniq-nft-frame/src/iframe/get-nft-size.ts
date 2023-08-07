@@ -1,5 +1,5 @@
 import {removeCommasFromNumberString} from '@augment-vir/common';
-import {NftConfigForChildIframe} from '../nft-config';
+import {NftConfigForChildIframe} from '../nft-frame-config';
 import {Dimensions} from '../util/dimensions';
 import {NftTypeEnum} from './nft-data';
 

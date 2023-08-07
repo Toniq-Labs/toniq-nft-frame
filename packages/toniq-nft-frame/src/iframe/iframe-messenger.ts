@@ -4,7 +4,7 @@ import {
     MessageDirectionEnum,
     createIframeMessenger,
 } from 'interlocking-iframe-messenger';
-import {NftConfigForChildIframe} from '../nft-config';
+import {NftConfigForChildIframe} from '../nft-frame-config';
 import {Dimensions} from '../util/dimensions';
 import {NftMetadata} from './nft-data';
 

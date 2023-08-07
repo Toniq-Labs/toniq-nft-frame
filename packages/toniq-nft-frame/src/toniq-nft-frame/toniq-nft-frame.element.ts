@@ -9,7 +9,7 @@ import {
     unsafeCSS,
 } from 'element-vir';
 import {NftAllData} from '../iframe/iframe-messenger';
-import {NftConfig} from '../nft-config';
+import {NftFrameConfig} from '../nft-frame-config';
 import {toniqNftFrameTagName} from '../toniq-nft-frame-tag-name';
 import {Dimensions, clampDimensions, scaleToConstraints} from '../util/dimensions';
 import {defaultChildFrameUrl} from './default-child-frame-url';
@@ -17,7 +17,7 @@ import {MutatedClassesEnum} from './mutated-classes';
 import {shouldAllowInteraction} from './nft-interactions';
 import {defaultToniqNtState} from './toniq-nft-frame-state';
 
-export const ToniqNftFrame = defineElement<NftConfig>()({
+export const ToniqNftFrame = defineElement<NftFrameConfig>()({
     tagName: toniqNftFrameTagName,
     stateInitStatic: defaultToniqNtState,
     events: {

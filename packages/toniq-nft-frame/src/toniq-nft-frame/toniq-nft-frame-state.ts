@@ -6,7 +6,7 @@ import {
     nftFrameIframeMessenger,
 } from '../iframe/iframe-messenger';
 import {doesNftNeedMoreTimeToLoadMaybe} from '../iframe/nft-data';
-import {NftConfig, defaultTimeoutMs, toChildNftConfig} from '../nft-config';
+import {NftFrameConfig, defaultTimeoutMs, toChildNftConfig} from '../nft-frame-config';
 import {extractOrigin} from '../util/url';
 import {defaultChildFrameUrl} from './default-child-frame-url';
 
@@ -26,7 +26,7 @@ export const defaultToniqNtState = {
         async updateCallback(
             triggers: {
                 isIframeReady: boolean;
-            } & NftConfig,
+            } & NftFrameConfig,
             extraInputs: {
                 iframeElement: HTMLIFrameElement | undefined;
                 initIframe: (iframe: HTMLIFrameElement) => void;
@@ -87,7 +87,7 @@ const retryDelays: ReadonlyArray<number> = [
 ];
 
 async function handleChildIframe(
-    inputs: NftConfig,
+    inputs: NftFrameConfig,
     extraInputs: {
         initIframe: (iframe: HTMLIFrameElement) => void;
         onNftLoaded: (dimensions: NftAllData) => void;

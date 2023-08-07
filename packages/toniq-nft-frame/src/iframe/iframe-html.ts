@@ -1,6 +1,6 @@
 import {isTruthy} from '@augment-vir/common';
 import {convertTemplateToString, html} from 'element-vir';
-import {NftConfigForChildIframe} from '../nft-config';
+import {NftConfigForChildIframe} from '../nft-frame-config';
 import {shouldAllowScrolling} from '../toniq-nft-frame/nft-interactions';
 import {Dimensions, calculateRatio, clampDimensions, scaleToConstraints} from '../util/dimensions';
 import {calculateOneLineHeight, getNftDimensions} from './get-nft-size';

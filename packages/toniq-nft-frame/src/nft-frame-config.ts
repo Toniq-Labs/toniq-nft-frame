@@ -52,7 +52,7 @@ const nftConfigConst = {
     allowConsoleLogs: undefined as boolean | undefined,
 } as const;
 
-export type NftConfig = Writable<
+export type NftFrameConfig = Writable<
     {
         [Prop in keyof typeof nftConfigConst as undefined extends (typeof nftConfigConst)[Prop]
             ? never
@@ -64,7 +64,7 @@ export type NftConfig = Writable<
     }
 >;
 
-export function toChildNftConfig(NftConfig: NftConfig & Record<PropertyKey, unknown>) {
+export function toChildNftConfig(NftConfig: NftFrameConfig & Record<PropertyKey, unknown>) {
     /**
      * Use pickObjectKeys a filter on the keys (rather than omitObjectKeys directly) to ensure that
      * we only pick expected keys, in case external sources include unexpected keys.
@@ -72,7 +72,7 @@ export function toChildNftConfig(NftConfig: NftConfig & Record<PropertyKey, unkn
     return pickObjectKeys(
         NftConfig,
         getObjectTypedKeys(nftConfigConst).filter(
-            (key): key is keyof NftConfig =>
+            (key): key is keyof NftFrameConfig =>
                 // don't send the child frame url to the frame
                 key !== 'childFrameUrl',
         ),

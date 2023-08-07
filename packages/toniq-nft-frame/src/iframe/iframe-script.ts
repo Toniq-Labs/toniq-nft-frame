@@ -1,6 +1,6 @@
 import {MaybePromise, areJsonEqual} from '@augment-vir/common';
 import {Writable} from 'type-fest';
-import {NftConfigForChildIframe} from '../nft-config';
+import {NftConfigForChildIframe} from '../nft-frame-config';
 import {loadNftDimensions, setTemplateHtml, thisScript} from './iframe-html';
 import {NftAllData, NftIframeMessageTypeEnum, nftFrameIframeMessenger} from './iframe-messenger';
 import {isFrameContentLoaded} from './is-content-loaded';
