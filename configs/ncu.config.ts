@@ -8,8 +8,6 @@ export const ncuConfig: RunOptions = {
     // exclude these
     reject: [
         ...baseNcuConfig.reject,
-        /** Requires v3 of prettier, which we're not ready for yet. */
-        'prettier-plugin-jsdoc',
     ],
     // include only these
     filter: [],
