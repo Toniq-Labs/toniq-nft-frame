@@ -1,6 +1,6 @@
-import {defaultChildFrameUrl} from '@toniq-labs/toniq-nft-frame';
 import {css, defineElementNoInputs, html} from 'element-vir';
 import {allExamplePaths} from '../../data/all-example-paths';
+import {childFrameUrl} from '../../data/child-frame-url';
 import {ToniqDemoCard} from './toniq-demo-card.element';
 
 export const ToniqDemoApp = defineElementNoInputs({
@@ -29,7 +29,7 @@ export const ToniqDemoApp = defineElementNoInputs({
                 html`
                     <${ToniqDemoCard.assign({
                         nftUrl: examplePath,
-                        nftOrigin: defaultChildFrameUrl,
+                        nftOrigin: childFrameUrl,
                     })}></${ToniqDemoCard}>
                 `,
         );
@@ -44,11 +44,11 @@ export const ToniqDemoApp = defineElementNoInputs({
                 </li>
                 <li>
                     The iframe for this demo is hosted at
-                    <a href=${defaultChildFrameUrl}>${defaultChildFrameUrl}.</a>
+                    <a href=${childFrameUrl}>${childFrameUrl}.</a>
                 </li>
                 <li>
                     All NFT URLs in this demo are thus relative to
-                    <a href=${defaultChildFrameUrl}>${defaultChildFrameUrl}.</a>
+                    <a href=${childFrameUrl}>${childFrameUrl}.</a>
                 </li>
             </ul>
             <section class="nfts">${cardTemplates}</section>

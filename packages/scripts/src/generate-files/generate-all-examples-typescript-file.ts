@@ -5,11 +5,17 @@ import {isBitgenExampleFilename} from '../common/bitgen-file-name';
 import {demoPackagePath, toniqNftFrameContentDirPath} from '../repo-paths';
 import {GeneratedFile, generatedFileTsComment} from './generated-file';
 
+const extraExamples = [
+    '/content/multi-script-example.html',
+    '',
+];
+
 export async function generateAllExamplesTypescriptFile(): Promise<GeneratedFile[]> {
     const allBitgenExamples = await findAllBitgenExampleFiles();
 
     const allExamplePaths: ReadonlyArray<string> = [
         allBitgenExamples,
+        extraExamples,
     ].flat();
 
     const allExamplesTsFileContents = `${generatedFileTsComment}

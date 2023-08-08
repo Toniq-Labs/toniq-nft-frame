@@ -12,7 +12,6 @@ import {NftAllData} from '../iframe/iframe-messenger';
 import {NftFrameConfig} from '../nft-frame-config';
 import {toniqNftFrameTagName} from '../toniq-nft-frame-tag-name';
 import {Dimensions, clampDimensions, scaleToConstraints} from '../util/dimensions';
-import {defaultChildFrameUrl} from './default-child-frame-url';
 import {MutatedClassesEnum} from './mutated-classes';
 import {shouldAllowInteraction} from './nft-interactions';
 import {defaultToniqNtState} from './toniq-nft-frame-state';
@@ -142,9 +141,12 @@ export const ToniqNftFrame = defineElement<NftFrameConfig>()({
             {
                 initIframe(iframe: HTMLIFrameElement) {
                     dispatch(new events.settle(false));
-                    iframe.src = inputs.childFrameUrl || defaultChildFrameUrl;
                     host.classList.remove(MutatedClassesEnum.HideLoading);
                     host.classList.remove(MutatedClassesEnum.VerticallyCenter);
+                    if (!inputs.childFrameUrl) {
+                        return;
+                    }
+                    iframe.src = inputs.childFrameUrl;
                 },
                 iframeElement: state.iframeElement,
                 onNftLoaded(nftData) {

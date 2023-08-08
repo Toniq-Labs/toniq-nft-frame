@@ -18,4 +18,5 @@ export const allExamplePaths: ReadonlyArray<string> = [
     '/content/bitgen-1-4.html',
     '/content/bitgen-1-5.html',
     '/content/multi-script-example.html',
+    '',
 ];

@@ -10,4 +10,4 @@ function isDev(): boolean {
 const prodFrameUrl = 'https://toniq-nft-frame.netlify.app';
 const devFrameUrl = 'http://localhost:5284';
 
-export const defaultChildFrameUrl = isDev() ? devFrameUrl : prodFrameUrl;
+export const childFrameUrl = isDev() ? devFrameUrl : prodFrameUrl;

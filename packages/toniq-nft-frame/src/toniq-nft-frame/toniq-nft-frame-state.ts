@@ -8,7 +8,6 @@ import {
 import {doesNftNeedMoreTimeToLoadMaybe} from '../iframe/nft-data';
 import {NftFrameConfig, defaultTimeoutMs, toChildNftConfig} from '../nft-frame-config';
 import {extractOrigin} from '../util/url';
-import {defaultChildFrameUrl} from './default-child-frame-url';
 
 async function waitForFrameLoad(iframeElement: HTMLIFrameElement) {
     const iframeLoadPromise = createDeferredPromiseWrapper();
@@ -34,7 +33,7 @@ export const defaultToniqNtState = {
                 onError: (error: Error) => void;
             },
         ): Promise<void> {
-            if (!triggers.nftUrl) {
+            if (!triggers.nftUrl || !triggers.childFrameUrl) {
                 /** Don't resolve this promise because we're still waiting on an NFT url. */
                 return new Promise(() => {});
             }
@@ -48,7 +47,7 @@ export const defaultToniqNtState = {
                     return new Promise(() => {});
                 }
 
-                const childOrigin = extractOrigin(triggers.childFrameUrl || defaultChildFrameUrl);
+                const childOrigin = extractOrigin(triggers.childFrameUrl);
 
                 const timeoutMs: number = triggers.timeoutMs || defaultTimeoutMs;
 

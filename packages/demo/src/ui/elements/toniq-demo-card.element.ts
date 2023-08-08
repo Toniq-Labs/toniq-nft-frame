@@ -1,6 +1,7 @@
 import {Dimensions, ToniqNftFrame} from '@toniq-labs/toniq-nft-frame';
 import {css, defineElement, html} from 'element-vir';
 import {noNativeFormStyles} from 'vira';
+import {childFrameUrl} from '../../data/child-frame-url';
 
 const nftDimensions: Dimensions = {
     width: 200,
@@ -38,11 +39,12 @@ export const ToniqDemoCard = defineElement<{
                         inputs.nftUrl,
                     ].join('/')}
                 >
-                    ${inputs.nftUrl}
+                    ${inputs.nftUrl || '(empty string)'}
                 </a>
             </p>
             <${ToniqNftFrame.assign({
                 nftUrl: inputs.nftUrl,
+                childFrameUrl,
                 blockPersistentCache: true,
                 min: nftDimensions,
                 max: nftDimensions,
