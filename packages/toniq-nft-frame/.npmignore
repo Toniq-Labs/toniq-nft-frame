@@ -13,7 +13,6 @@
 /src/
 /www-static/
 bash-scripts/
-index.html
 test-files/
 tsconfig*.json
 
