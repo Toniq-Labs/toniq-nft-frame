@@ -9,7 +9,7 @@ const nftConfigConst = {
      * URL for the child NFT iframe. If none are provided, this defaults to Toniq Lab's own NFT
      * iframe URL.
      */
-    childFrameUrl: '' as string | undefined,
+    childFrameUrl: '' as string,
     /** The max NFT size constraints which the NFT will be resized to fit within. */
     max: undefined as Dimensions | undefined,
     /** The min NFT size constraints which the NFT will be resized to fit within. */
