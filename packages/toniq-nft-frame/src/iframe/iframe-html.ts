@@ -1,8 +1,9 @@
-import {isTruthy} from '@augment-vir/common';
+import {awaitedForEach, isTruthy, wait} from '@augment-vir/common';
 import {convertTemplateToString, html} from 'element-vir';
 import {NftConfigForChildIframe} from '../nft-frame-config';
 import {shouldAllowScrolling} from '../toniq-nft-frame/nft-interactions';
 import {Dimensions, calculateRatio, clampDimensions, scaleToConstraints} from '../util/dimensions';
+import {waitForScriptToLoad} from '../util/element';
 import {calculateOneLineHeight, getNftDimensions} from './get-nft-size';
 import {iframeStyleElement} from './iframe-styles';
 import {NftMetadata, NftTypeEnum, isNftTypeAudioLike, isNftTypeTextLike} from './nft-data';
@@ -124,7 +125,26 @@ function setScaledNftSize(
     return newNftDimensions;
 }
 
-export function setTemplateHtml(nftMetadata: NftMetadata, nftConfig: NftConfigForChildIframe) {
+const loadedScriptsKey = 'toniqNftFrameLoadedScripts' as const;
+
+const windowWithLoadedScripts = window as unknown as Record<typeof loadedScriptsKey, boolean[]>;
+
+windowWithLoadedScripts[loadedScriptsKey] = [];
+
+async function waitForTextScriptToBeLoaded(index: number) {
+    const startTime = Date.now();
+    while (!windowWithLoadedScripts[loadedScriptsKey][index]) {
+        await wait(10);
+        if (Date.now() - startTime > 20_000) {
+            throw new Error(`Timeout waiting for script ${index} to finish execution.`);
+        }
+    }
+}
+
+export async function setTemplateHtml(
+    nftMetadata: NftMetadata,
+    nftConfig: NftConfigForChildIframe,
+) {
     const htmlElement = document.querySelector('html');
 
     if (!(htmlElement instanceof HTMLHtmlElement)) {
@@ -156,21 +176,34 @@ export function setTemplateHtml(nftMetadata: NftMetadata, nftConfig: NftConfigFo
     htmlElement.innerHTML = newHtmlEntries.join('\n');
     document.head.innerHTML += convertTemplateToString(iframeStyleElement);
 
-    Array.from(document.querySelectorAll('script')).forEach((oldScript) => {
-        if (oldScript === thisScript) {
-            return;
-        }
+    await awaitedForEach(
+        Array.from(document.querySelectorAll('script')),
+        async (oldScript, index) => {
+            if (oldScript === thisScript) {
+                return;
+            }
 
-        const newScript = document.createElement('script');
+            const newScript = document.createElement('script');
 
-        Array.from(oldScript.attributes).forEach((attribute) => {
-            newScript.setAttribute(attribute.name, attribute.value);
-        });
+            Array.from(oldScript.attributes).forEach((attribute) => {
+                newScript.setAttribute(attribute.name, attribute.value);
+            });
 
-        newScript.innerHTML = oldScript.innerHTML;
+            newScript.innerHTML = oldScript.innerHTML
+                ? oldScript.innerHTML + `\nwindow.${loadedScriptsKey}[${index}] = true;`
+                : oldScript.innerHTML;
 
-        oldScript.parentElement!.replaceChild(newScript, oldScript);
-    });
+            const scriptLoadPromise =
+                newScript.getAttribute('async') == null
+                    ? newScript.innerHTML
+                        ? waitForTextScriptToBeLoaded(index)
+                        : waitForScriptToLoad(newScript)
+                    : undefined;
+
+            oldScript.parentElement!.replaceChild(newScript, oldScript);
+            await scriptLoadPromise;
+        },
+    );
 
     if (nftMetadata.nftType !== NftTypeEnum.Audio) {
         try {

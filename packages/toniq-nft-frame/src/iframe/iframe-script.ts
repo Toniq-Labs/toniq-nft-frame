@@ -9,7 +9,7 @@ import {NftMetadata, getNftMetadata} from './nft-data';
 const initFrameState = {
     nftConfig: undefined as NftConfigForChildIframe | undefined,
     nftData: undefined as MaybePromise<NftMetadata> | undefined,
-    readyHtmlElement: undefined as HTMLHtmlElement | undefined,
+    readyHtmlElement: undefined as MaybePromise<HTMLHtmlElement> | undefined,
 } as const;
 
 function isStateAllResolved(
@@ -51,8 +51,8 @@ function startFrame() {
             }
 
             if (!state.nftConfig || !areJsonEqual(state.nftConfig, message.data)) {
-                if (state.readyHtmlElement) {
-                    state.readyHtmlElement.classList.remove('finished');
+                if (awaitedState.readyHtmlElement) {
+                    awaitedState.readyHtmlElement.classList.remove('finished');
                 }
                 state.nftConfig = message.data;
                 state.nftData = undefined;
@@ -70,6 +70,11 @@ function startFrame() {
 
             if (!state.readyHtmlElement) {
                 state.readyHtmlElement = setTemplateHtml(state.nftData, state.nftConfig);
+                state.readyHtmlElement = await state.readyHtmlElement;
+                awaitedState.readyHtmlElement = state.readyHtmlElement;
+            }
+            if (!awaitedState.readyHtmlElement) {
+                return undefined;
             }
 
             /** Wait for the content to load before determining its dimensions */
@@ -81,14 +86,14 @@ function startFrame() {
             const dimensions = loadNftDimensions(
                 state.nftData,
                 state.nftConfig,
-                state.readyHtmlElement,
+                awaitedState.readyHtmlElement,
             );
 
             if (!dimensions) {
                 return undefined;
             }
 
-            state.readyHtmlElement.classList.add('finished');
+            awaitedState.readyHtmlElement.classList.add('finished');
 
             const fullResults: NftAllData = {
                 ...state.nftData,
