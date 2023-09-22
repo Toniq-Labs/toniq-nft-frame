@@ -50,6 +50,7 @@ const nftConfigConst = {
     blockPersistentCache: undefined as boolean | undefined,
     /** Set this to true to prevent removal of console method calls inside of the child iframe. */
     allowConsoleLogs: undefined as boolean | undefined,
+    hideError: undefined as boolean | undefined,
 } as const;
 
 export type NftFrameConfig = Writable<
