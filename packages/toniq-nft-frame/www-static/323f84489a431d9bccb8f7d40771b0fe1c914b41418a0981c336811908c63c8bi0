@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" id="master-frame" style="width: 100%; height: 100%" onclick="playAudio()">
+  <image href='/content/f3b046cdf6bad71db534db60714a2a74c8dc04f672413bb70babff9a83cc7a7bi0' x="0" y="0" width="100%" height="100%" id="masterwork-background" />
+  <image href='/content/e181c1b17aa2d14048624bb87c302e8756756546f27cf225b64b713153f4cf38i0' x="0" y="0" width="100%" height="100%" id="masterwork-faceTattoo" />
+  <image href="/content/a12fc7c686ca6e49370ddceb5118bce9f21f22b87e2c9a03380859e5e011b341i0" x="0" y="0" width="100%" height="100%" id="masterwork-eyes" />
+  <image href='/content/3740ef057c741766a19859a68dd851f5df91f926abfa9b58bc58a184fe15445bi0' x="0" y="0" width="100%" height="100%" id="masterwork-hoodie" />
+  <audio id="audio" xmlns="http://www.w3.org/1999/xhtml">
+    <source src='/content/20cdd20fdde56a4e377fa6f2f6ea6ccab62c1736403f89b03e4e50bb96445ecfi0'/>
+  </audio>
+
+  <script>
+  const commonAudio = ['/content/20cdd20fdde56a4e377fa6f2f6ea6ccab62c1736403f89b03e4e50bb96445ecfi0','/content/d944dc5ec62c5ac9cf15d490fc97241e3a2c2e2545ef305c39a770e300e36014i0', '/content/c3f947619176cd1362f616c06d8c26e43c90cf03836b53ad11d3b86089e0433ci0'];
+  const rareAudio = ['/content/604dc44230ee3fed1b89c15d049bec5f98b72aaa502e4691633e5a71b5ec5cf2i0', '/content/64be4cfcbefda165b0e34b1204f9b29953a68acef22e4a84c9b8b026449335aei0'];
+  const audioEl = document.getElementById('audio');
+  let countClicks = 0;
+  const playAudio = function () {
+    const caseCommon = countClicks &gt; 0 &amp;&amp; countClicks &lt;= 5;
+    const caseRare = countClicks &gt;= 6 &amp;&amp; countClicks &lt; 8;
+    switch (true) {
+      case caseCommon:
+        audioEl.src = commonAudio[Date.now() % 3];
+        break;
+      case caseRare:
+        audioEl.src = rareAudio[Date.now() % 2];
+        break;
+      default:
+        audioEl.src = commonAudio[Date.now() % 3];
+        countClicks = 1;
+    }
+    audioEl.currentTime = 0;
+    audioEl.play();
+    countClicks++;
+  };
+  </script>
+</svg>

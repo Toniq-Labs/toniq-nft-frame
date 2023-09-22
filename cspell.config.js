@@ -5,7 +5,8 @@ module.exports = {
     ignorePaths: [
         ...baseConfig.ignorePaths,
         'packages/toniq-nft-frame/iframe-dist',
-        'packages/demo/www-static/safari-pinned-tab.svg',
+        'packages/demo/www-static/',
+        'packages/toniq-nft-frame/www-static/',
     ],
     words: [
         ...baseConfig.words,

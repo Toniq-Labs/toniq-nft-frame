@@ -20,8 +20,15 @@ export const ToniqNftFrame = defineElement<NftFrameConfig>()({
     tagName: toniqNftFrameTagName,
     stateInitStatic: defaultToniqNtState,
     events: {
+        /**
+         * Indicates the loaded state of the NFT frame. Emits as false when loading starts, and true
+         * when loading finishes. If there is an error, the error event will fire instead of this
+         * settle event.
+         */
         settle: defineElementEvent<boolean>(),
+        /** Emits the NFT data once it has loaded. */
         nftDataLoad: defineElementEvent<NftAllData>(),
+        /** Emits when / if an error is encountered while loading the NFT. */
         error: defineElementEvent<Error>(),
     },
     styles: css`
@@ -220,7 +227,7 @@ export const ToniqNftFrame = defineElement<NftFrameConfig>()({
         const clickCoverTemplate = isInteractionAllowed ? '' : defaultClickCover;
 
         const error: Error | undefined =
-            state.childIframeLoading.value instanceof Error
+            !inputs.hideError && state.childIframeLoading.value instanceof Error
                 ? state.childIframeLoading.value
                 : undefined;
 
