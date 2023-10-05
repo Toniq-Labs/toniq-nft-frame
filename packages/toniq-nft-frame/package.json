@@ -24,28 +24,28 @@
         "test": "virmator test-web"
     },
     "dependencies": {
-        "@augment-vir/common": "^19.0.1",
-        "element-vir": "^16.4.0",
+        "@augment-vir/common": "^19.4.2",
+        "element-vir": "^16.4.2",
         "interlocking-iframe-messenger": "^4.4.0",
         "localforage-esm": "^1.10.2"
     },
     "devDependencies": {
-        "@augment-vir/browser-testing": "^19.0.1",
-        "@augment-vir/node-js": "^19.0.1",
+        "@augment-vir/browser-testing": "^19.4.2",
+        "@augment-vir/node-js": "^19.4.2",
         "@electrovir/nyc": "^15.1.0-fix0",
         "@open-wc/testing": "^3.2.0",
-        "@types/mocha": "^10.0.1",
+        "@types/mocha": "^10.0.2",
         "@web/dev-server-esbuild": "^0.4.1",
         "@web/test-runner": "^0.17.1",
         "@web/test-runner-commands": "^0.8.0",
         "@web/test-runner-playwright": "^0.10.1",
         "@web/test-runner-visual-regression": "^0.8.2",
-        "esbuild": "^0.19.3",
+        "esbuild": "^0.19.4",
         "istanbul-smart-text-reporter": "^1.1.2",
         "prettier": "^2.8.8",
-        "type-fest": "^4.3.1",
+        "type-fest": "^4.3.3",
         "typescript": "^5.2.2",
-        "vite": "^4.4.9",
+        "vite": "^4.4.11",
         "vite-tsconfig-paths": "^4.2.1"
     },
     "publishConfig": {
