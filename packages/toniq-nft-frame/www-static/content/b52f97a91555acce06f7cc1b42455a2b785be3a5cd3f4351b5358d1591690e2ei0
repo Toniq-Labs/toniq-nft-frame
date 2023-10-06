@@ -1,0 +1,1 @@
+function draw(t,e){let n=t.getContext("2d"),o=[];var a=0;e.forEach(t=>{let l=new Image;l.src=t,l.onload=()=>{(a+=1)===e.length&&function t(){for(let e=0;e<o.length;e++)n.drawImage(o[e],0,0)}()},o.push(l)})}
