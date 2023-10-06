@@ -1,4 +1,4 @@
-import {removeCommasFromNumberString} from '@augment-vir/common';
+import {isTruthy, removeCommasFromNumberString, removePx} from '@augment-vir/common';
 import {NftConfigForChildIframe} from '../nft-frame-config';
 import {Dimensions} from '../util/dimensions';
 import {NftTypeEnum} from './nft-data';
@@ -12,8 +12,8 @@ function extractSvgSize(svgElement: SVGElement) {
     const viewBoxHeight = Number(
         removeCommasFromNumberString(viewBoxDimensions?.[2] ?? '') || undefined,
     );
-    const width = Number(svgElement.getAttribute('width')?.replace(/px$/, '')) || viewBoxWidth;
-    const height = Number(svgElement.getAttribute('height')?.replace(/px$/, '')) || viewBoxHeight;
+    const width = removePx(svgElement.getAttribute('width') || '') || viewBoxWidth;
+    const height = removePx(svgElement.getAttribute('height') || '') || viewBoxHeight;
     if (isNaN(width) || isNaN(height)) {
         return undefined;
     } else {
@@ -23,30 +23,43 @@ function extractSvgSize(svgElement: SVGElement) {
 
 function extractHtmlSizeFromTopLevelElements(
     nftUrl: string,
-    element: Element | null,
+    elements: ReadonlyArray<Element>,
     recurse: boolean,
 ) {
-    if (!element) {
+    if (!elements.length) {
         return undefined;
     }
 
-    let size;
-    const rawWidth = window.getComputedStyle(element).width;
-    const rawHeight = window.getComputedStyle(element).height;
-    const width = Number(rawWidth.replace(/px$/, ''));
-    const height = Number(rawHeight.replace(/px$/, ''));
+    const positions = elements.map((element) => {
+        const rect = element.getBoundingClientRect();
 
-    if (width && height) {
-        size = {height, width};
-    }
+        return rect;
+    });
 
-    if (size) {
-        if (!size.height || !size.width) {
-            throw new Error('Got invalid html size for ' + nftUrl + JSON.stringify(size));
-        }
+    const combinedMaxes = positions.reduce(
+        (current, position) => {
+            return {
+                highestX: position.right > current.highestX ? position.right : current.highestX,
+                lowestX: position.left < current.lowestX ? position.left : current.lowestX,
+                highestY: position.right > current.highestY ? position.right : current.highestY,
+                lowestY: position.left < current.lowestY ? position.left : current.lowestY,
+            };
+        },
+        {lowestX: 0, highestX: 0, lowestY: 0, highestY: 0},
+    );
+    const size: Dimensions = {
+        width: combinedMaxes.highestX - combinedMaxes.lowestX,
+        height: combinedMaxes.highestY - combinedMaxes.lowestY,
+    };
+
+    if (size.width && size.height) {
         return size;
     } else if (recurse) {
-        return extractHtmlSizeFromTopLevelElements(nftUrl, element.nextElementSibling, true);
+        return extractHtmlSizeFromTopLevelElements(
+            nftUrl,
+            Array.from(elements[0]?.querySelectorAll('> *') ?? []),
+            true,
+        );
     } else {
         return undefined;
     }
@@ -56,13 +69,13 @@ function extractHtmlSizeFromAnything(nftUrl: string) {
     const allElements = [
         document.querySelector('html'),
         ...Array.from(document.body.querySelectorAll('*')),
-    ];
+    ].filter(isTruthy);
     let biggestSize = {
         height: 0,
         width: 0,
     };
     allElements.forEach((child) => {
-        const childSize = extractHtmlSizeFromTopLevelElements(nftUrl, child, false);
+        const childSize = extractHtmlSizeFromTopLevelElements(nftUrl, [child], false);
         if (childSize) {
             if (childSize.width > biggestSize.width) {
                 biggestSize.width = childSize.width;
@@ -84,10 +97,10 @@ function getHtmlSize({
     nftUrl,
 }: Pick<NftConfigForChildIframe, 'nftUrl' | 'htmlSizeQuerySelector'>) {
     const query = htmlSizeQuerySelector ?? ('' || 'body > *');
-    const extractSizeFromHere = document.querySelector(query);
+    const extractSizeFromHere = document.querySelectorAll(query);
 
     const size =
-        extractHtmlSizeFromTopLevelElements(nftUrl, extractSizeFromHere, true) ??
+        extractHtmlSizeFromTopLevelElements(nftUrl, Array.from(extractSizeFromHere), true) ??
         extractHtmlSizeFromAnything(nftUrl);
 
     return size;
