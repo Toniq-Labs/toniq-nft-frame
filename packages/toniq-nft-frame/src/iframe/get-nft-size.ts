@@ -1,4 +1,4 @@
-import {isTruthy, removeCommasFromNumberString, removePx} from '@augment-vir/common';
+import {isTruthy, removeCommasFromNumberString, removePx, wrapInTry} from '@augment-vir/common';
 import {NftConfigForChildIframe} from '../nft-frame-config';
 import {Dimensions} from '../util/dimensions';
 import {NftTypeEnum} from './nft-data';
@@ -12,8 +12,14 @@ function extractSvgSize(svgElement: SVGElement) {
     const viewBoxHeight = Number(
         removeCommasFromNumberString(viewBoxDimensions?.[2] ?? '') || undefined,
     );
-    const width = removePx(svgElement.getAttribute('width') || '') || viewBoxWidth;
-    const height = removePx(svgElement.getAttribute('height') || '') || viewBoxHeight;
+    const width = wrapInTry({
+        callback: () => removePx(svgElement.getAttribute('width') || '') || viewBoxWidth,
+        fallbackValue: NaN,
+    });
+    const height = wrapInTry({
+        callback: () => removePx(svgElement.getAttribute('height') || '') || viewBoxHeight,
+        fallbackValue: NaN,
+    });
     if (isNaN(width) || isNaN(height)) {
         return undefined;
     } else {
