@@ -190,8 +190,8 @@ export async function setTemplateHtml(
             });
 
             newScript.textContent = oldScript.textContent
-                ? `try {${oldScript.textContent}} catch (error) {throw error} finally {window.${loadedScriptsKey}[${index}] = true;}`
-                : oldScript.textContent;
+                ? oldScript.textContent + `\nwindow.${loadedScriptsKey}[${index}] = true;`
+                : oldScript.textContent ?? '';
 
             const scriptLoadPromise =
                 newScript.getAttribute('async') == null
