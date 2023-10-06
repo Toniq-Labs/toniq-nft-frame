@@ -31,6 +31,7 @@ export const defaultToniqNtState = {
                 initIframe: (iframe: HTMLIFrameElement) => void;
                 onNftLoaded: (dimensions: NftAllData) => void;
                 onError: (error: Error) => void;
+                hostElement: HTMLElement;
             },
         ): Promise<void> {
             if (!triggers.nftUrl || !triggers.childFrameUrl) {
@@ -77,6 +78,12 @@ export const defaultToniqNtState = {
     }),
 };
 
+const retryDelaysMs = [
+    20,
+    100,
+    3000,
+] as const satisfies ReadonlyArray<number>;
+
 async function handleChildIframe(
     inputs: NftFrameConfig,
     extraInputs: {
@@ -84,12 +91,22 @@ async function handleChildIframe(
         onNftLoaded: (dimensions: NftAllData) => void;
         onError: (error: Error) => void;
         iframeElement: HTMLIFrameElement;
+        hostElement: HTMLElement;
     },
     childOrigin: string,
     timeoutMs: number,
 ): Promise<void> {
     const nftConfigForIframe = toChildNftConfig(inputs);
     let latestNftData: NftAllData | undefined | Error;
+    let stopRetryingSize = false;
+
+    function hostListener() {
+        stopRetryingSize = true;
+        extraInputs.hostElement.removeEventListener('mouseover', hostListener);
+    }
+    extraInputs.hostElement.addEventListener('mouseover', hostListener);
+
+    let currentRetryAttempt = 0;
 
     async function getNftDataFromChild() {
         try {
@@ -130,6 +147,26 @@ async function handleChildIframe(
 
             if (!doesNftNeedMoreTimeToLoadMaybe(latestNftData.nftType)) {
                 return;
+            }
+
+            const delayTillNextAttempt = retryDelaysMs[currentRetryAttempt];
+            currentRetryAttempt++;
+
+            /**
+             * The below isConnected checks are required to account for the element potentially
+             * being removed from the DOM.
+             */
+            if (
+                delayTillNextAttempt != undefined &&
+                extraInputs.iframeElement.isConnected &&
+                !stopRetryingSize
+            ) {
+                /** Account for the NFT size potentially changing as child JS is loaded and executed. */
+                setTimeout(async () => {
+                    if (extraInputs.iframeElement.isConnected && !stopRetryingSize) {
+                        getNftDataFromChild();
+                    }
+                }, delayTillNextAttempt);
             }
         } catch (error) {
             latestNftData = ensureError(error);

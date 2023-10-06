@@ -194,6 +194,7 @@ export const ToniqNftFrame = defineElement<NftFrameConfig>()({
                     console.error(error);
                     dispatch(new events.error(error));
                 },
+                hostElement: host,
             },
         );
 
