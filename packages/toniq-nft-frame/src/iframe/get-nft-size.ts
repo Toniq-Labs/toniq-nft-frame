@@ -96,7 +96,7 @@ function getHtmlSize({
     htmlSizeQuerySelector,
     nftUrl,
 }: Pick<NftConfigForChildIframe, 'nftUrl' | 'htmlSizeQuerySelector'>) {
-    const query = htmlSizeQuerySelector ?? ('' || 'body > *');
+    const query = htmlSizeQuerySelector ?? 'body > *';
     const extractSizeFromHere = document.querySelectorAll(query);
 
     const size =

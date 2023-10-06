@@ -77,14 +77,6 @@ export const defaultToniqNtState = {
     }),
 };
 
-const retryDelays: ReadonlyArray<number> = [
-    20,
-    100,
-    100,
-    1000,
-    5000,
-];
-
 async function handleChildIframe(
     inputs: NftFrameConfig,
     extraInputs: {
@@ -98,8 +90,6 @@ async function handleChildIframe(
 ): Promise<void> {
     const nftConfigForIframe = toChildNftConfig(inputs);
     let latestNftData: NftAllData | undefined | Error;
-
-    let currentRetryAttempt = 0;
 
     async function getNftDataFromChild() {
         try {
@@ -140,22 +130,6 @@ async function handleChildIframe(
 
             if (!doesNftNeedMoreTimeToLoadMaybe(latestNftData.nftType)) {
                 return;
-            }
-
-            const delayTillNextAttempt = retryDelays[currentRetryAttempt];
-            currentRetryAttempt++;
-
-            /**
-             * The below isConnected checks are required to account for the element potentially
-             * being removed from the DOM.
-             */
-            if (delayTillNextAttempt != undefined && extraInputs.iframeElement.isConnected) {
-                /** Account for the NFT size potentially changing as child JS is loaded and executed. */
-                setTimeout(async () => {
-                    if (extraInputs.iframeElement.isConnected) {
-                        getNftDataFromChild();
-                    }
-                }, delayTillNextAttempt);
             }
         } catch (error) {
             latestNftData = ensureError(error);

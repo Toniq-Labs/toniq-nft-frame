@@ -111,7 +111,7 @@ function setScaledNftSize(
         };
     }
 
-    if (dimensionScales) {
+    if (dimensionScales && (dimensionScales.height !== 1 || dimensionScales.width !== 1)) {
         htmlElement.style.setProperty(
             'transform',
             [
