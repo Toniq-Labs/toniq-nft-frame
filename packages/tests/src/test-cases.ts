@@ -21,6 +21,9 @@ const rawTestCases: ReadonlyArray<
     {
         nftId: '3ab3d8dcd31cc8db0f0feaf2373c444697aae275a108ba72615c93de5ebcc4f8i0',
     },
+    {
+        nftId: 'f2fe86f6b0fd73a4f17cfb55a126fc22eb1c6c216cbe0df3f49e82acd27f7404i0',
+    },
     // cspell:enable
 ];
 
