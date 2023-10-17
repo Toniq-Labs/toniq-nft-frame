@@ -1,6 +1,6 @@
 {
     "name": "@toniq-labs/toniq-nft-frame-mono-repo-root",
-    "version": "1.0.8",
+    "version": "1.0.9",
     "private": true,
     "license": "MIT",
     "author": {
@@ -29,8 +29,8 @@
     "devDependencies": {
         "concurrently": "^8.2.1",
         "cspell": "^7.3.8",
-        "dependency-cruiser": "^14.1.1",
-        "esbuild": "^0.19.4",
+        "dependency-cruiser": "^14.1.2",
+        "esbuild": "^0.19.5",
         "markdown-code-example-inserter": "^0.3.2",
         "mono-vir": "^0.1.6",
         "nodemon": "^3.0.1",
@@ -44,6 +44,6 @@
         "prettier-plugin-sort-json": "^2.0.0",
         "prettier-plugin-toml": "^0.3.1",
         "typedoc": "^0.25.2",
-        "virmator": "^9.1.1"
+        "virmator": "^9.1.3"
     }
 }
