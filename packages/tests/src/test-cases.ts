@@ -61,13 +61,11 @@ export const testCases: ReadonlyArray<TestCase> = rawTestCases
     .map((rawTestCase) => {
         return [
             {
-                ...rawTestCase,
                 ...mediumSize,
                 nftUrl: joinUrlParts(nftURlBase || testIframeUrl, rawTestCase.nftId),
                 childFrameUrl: testIframeUrl,
             },
             {
-                ...rawTestCase,
                 ...largeSize,
                 nftUrl: joinUrlParts(nftURlBase || testIframeUrl, rawTestCase.nftId),
                 childFrameUrl: testIframeUrl,

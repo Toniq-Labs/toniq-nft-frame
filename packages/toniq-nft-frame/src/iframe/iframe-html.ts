@@ -1,4 +1,3 @@
-import {waitForAnimationFrame} from '@augment-vir/browser';
 import {awaitedForEach, isTruthy, wait} from '@augment-vir/common';
 import {convertTemplateToString, html} from 'element-vir';
 import {NftConfigForChildIframe} from '../nft-frame-config';
@@ -216,7 +215,7 @@ export async function setTemplateHtml(
         }
     }
 
-    await waitForAnimationFrame(10);
+    await wait(nftConfig.loadWait?.milliseconds ?? 500);
 
     return htmlElement;
 }
