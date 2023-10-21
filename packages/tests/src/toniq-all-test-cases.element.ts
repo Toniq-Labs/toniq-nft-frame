@@ -10,6 +10,10 @@ export const ToniqAllTestCases = defineElementNoInputs({
             display: flex;
             flex-wrap: wrap;
         }
+
+        ${ToniqNftFrame} {
+            border: 1px solid #bbb;
+        }
     `,
     stateInitStatic: {
         iframeReady: asyncProp({defaultValue: waitForIframe()}),

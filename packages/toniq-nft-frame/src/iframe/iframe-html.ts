@@ -1,3 +1,4 @@
+import {waitForAnimationFrame} from '@augment-vir/browser';
 import {awaitedForEach, isTruthy, wait} from '@augment-vir/common';
 import {convertTemplateToString, html} from 'element-vir';
 import {NftConfigForChildIframe} from '../nft-frame-config';
@@ -112,7 +113,7 @@ function setScaledNftSize(
     }
 
     if (dimensionScales && (dimensionScales.height !== 1 || dimensionScales.width !== 1)) {
-        htmlElement.style.setProperty(
+        htmlElement.querySelector('body')!.style.setProperty(
             'transform',
             [
                 `scaleX(${dimensionScales.width})`,
@@ -215,6 +216,8 @@ export async function setTemplateHtml(
         }
     }
 
+    await waitForAnimationFrame(10);
+
     return htmlElement;
 }
 
@@ -223,10 +226,14 @@ export function loadNftDimensions(
     nftConfig: NftConfigForChildIframe,
     htmlElement: HTMLHtmlElement,
 ): Dimensions | undefined {
-    const originalNftDimensions: Dimensions =
+    const originalNftDimensions: Dimensions | undefined =
         nftConfig.forcedOriginalNftSize ?? getNftDimensions(nftConfig, nftMetadata.nftType);
 
-    if (!originalNftDimensions.height || !originalNftDimensions.height) {
+    if (
+        !originalNftDimensions ||
+        !originalNftDimensions?.height ||
+        !originalNftDimensions?.height
+    ) {
         return undefined;
     }
 

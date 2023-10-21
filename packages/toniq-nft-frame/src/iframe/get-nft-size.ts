@@ -1,4 +1,4 @@
-import {isTruthy, removeCommasFromNumberString, removePx, wrapInTry} from '@augment-vir/common';
+import {removeCommasFromNumberString, removePx, wrapInTry} from '@augment-vir/common';
 import {NftConfigForChildIframe} from '../nft-frame-config';
 import {Dimensions} from '../util/dimensions';
 import {NftTypeEnum} from './nft-data';
@@ -27,11 +27,7 @@ function extractSvgSize(svgElement: SVGElement) {
     }
 }
 
-function extractHtmlSizeFromTopLevelElements(
-    nftUrl: string,
-    elements: ReadonlyArray<Element>,
-    recurse: boolean,
-) {
+function extractHtmlSizeFromTopLevelElements(elements: ReadonlyArray<Element>) {
     if (!elements.length) {
         return undefined;
     }
@@ -43,71 +39,59 @@ function extractHtmlSizeFromTopLevelElements(
     });
 
     const combinedMaxes = positions.reduce(
-        (current, position) => {
-            return {
-                highestX: position.right > current.highestX ? position.right : current.highestX,
-                lowestX: position.left < current.lowestX ? position.left : current.lowestX,
-                highestY: position.right > current.highestY ? position.right : current.highestY,
-                lowestY: position.left < current.lowestY ? position.left : current.lowestY,
-            };
+        (accum, position) => {
+            if (position.width) {
+                if (accum.highestX == undefined || position.right > accum.highestX) {
+                    accum.highestX = position.right;
+                }
+                if (accum.lowestX == undefined || position.left < accum.lowestX) {
+                    accum.lowestX = position.left;
+                }
+            }
+            if (position.height) {
+                if (accum.highestY == undefined || position.bottom > accum.highestY) {
+                    accum.highestY = position.bottom;
+                }
+                if (accum.lowestY == undefined || position.top < accum.lowestY) {
+                    accum.lowestY = position.top;
+                }
+            }
+            return accum;
         },
-        {lowestX: 0, highestX: 0, lowestY: 0, highestY: 0},
+        {
+            lowestX: undefined as number | undefined,
+            highestX: undefined as number | undefined,
+
+            lowestY: undefined as number | undefined,
+            highestY: undefined as number | undefined,
+        },
     );
+
     const size: Dimensions = {
-        width: combinedMaxes.highestX - combinedMaxes.lowestX,
-        height: combinedMaxes.highestY - combinedMaxes.lowestY,
+        width:
+            combinedMaxes.highestX == undefined || combinedMaxes.lowestX == undefined
+                ? 0
+                : combinedMaxes.highestX - combinedMaxes.lowestX,
+        height:
+            combinedMaxes.highestY == undefined || combinedMaxes.lowestY == undefined
+                ? 0
+                : combinedMaxes.highestY - combinedMaxes.lowestY,
     };
 
     if (size.width && size.height) {
         return size;
-    } else if (recurse) {
-        return extractHtmlSizeFromTopLevelElements(
-            nftUrl,
-            Array.from(elements[0]?.querySelectorAll('> *') ?? []),
-            true,
-        );
     } else {
         return undefined;
     }
 }
 
-function extractHtmlSizeFromAnything(nftUrl: string) {
-    const allElements = [
-        document.querySelector('html'),
-        ...Array.from(document.body.querySelectorAll('*')),
-    ].filter(isTruthy);
-    let biggestSize = {
-        height: 0,
-        width: 0,
-    };
-    allElements.forEach((child) => {
-        const childSize = extractHtmlSizeFromTopLevelElements(nftUrl, [child], false);
-        if (childSize) {
-            if (childSize.width > biggestSize.width) {
-                biggestSize.width = childSize.width;
-            }
-            if (childSize.height > biggestSize.height) {
-                biggestSize.height = childSize.height;
-            }
-        }
-    });
-
-    return {
-        width: biggestSize.width || 250,
-        height: biggestSize.height || 250,
-    };
-}
-
 function getHtmlSize({
     htmlSizeQuerySelector,
-    nftUrl,
-}: Pick<NftConfigForChildIframe, 'nftUrl' | 'htmlSizeQuerySelector'>) {
+}: Pick<NftConfigForChildIframe, 'htmlSizeQuerySelector'>) {
     const query = htmlSizeQuerySelector ?? 'body > *';
     const extractSizeFromHere = document.querySelectorAll(query);
 
-    const size =
-        extractHtmlSizeFromTopLevelElements(nftUrl, Array.from(extractSizeFromHere), true) ??
-        extractHtmlSizeFromAnything(nftUrl);
+    const size = extractHtmlSizeFromTopLevelElements(Array.from(extractSizeFromHere));
 
     return size;
 }
@@ -197,7 +181,7 @@ const sizeGrabbers: Record<
             NftConfigForChildIframe,
             'forcedFinalNftSize' | 'htmlSizeQuerySelector' | 'nftUrl' | 'min' | 'max'
         >,
-    ) => Dimensions
+    ) => Dimensions | undefined
 > = {
     [NftTypeEnum.Svg]: getSvgSize,
     [NftTypeEnum.Html]: getHtmlSize,
@@ -217,7 +201,7 @@ export function getNftDimensions(
         'forcedFinalNftSize' | 'htmlSizeQuerySelector' | 'nftUrl' | 'max' | 'min'
     >,
     nftType: NftTypeEnum,
-): Dimensions {
+): Dimensions | undefined {
     if (!(nftType in sizeGrabbers)) {
         throw new Error('No size grabber exists for nft type "' + nftType + '"');
     }

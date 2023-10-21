@@ -1,6 +1,6 @@
 {
     "name": "@toniq-labs/toniq-nft-frame",
-    "version": "1.0.9",
+    "version": "1.0.10",
     "homepage": "https://github.com/Toniq-Labs/nft-frame",
     "bugs": {
         "url": "https://github.com/Toniq-Labs/nft-frame/issues"
@@ -24,6 +24,7 @@
         "test": "virmator test-web"
     },
     "dependencies": {
+        "@augment-vir/browser": "^21.3.6",
         "@augment-vir/common": "^21.3.6",
         "element-vir": "^16.5.0",
         "interlocking-iframe-messenger": "^4.4.0",
