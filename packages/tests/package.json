@@ -9,7 +9,7 @@
     },
     "scripts": {
         "compile": "tsc --noEmit",
-        "start": "concurrently --kill-others --colors -c auto --names iframe,frontend \"cd ../ && npm start --workspace @toniq-labs/toniq-nft-frame\" \"virmator frontend\"",
+        "start": "concurrently --kill-others --colors -c auto --names iframe,frontend \"cd ../ && USE_BASE='true' npm start --workspace @toniq-labs/toniq-nft-frame\" \"virmator frontend \"",
         "test": "exit 0"
     },
     "dependencies": {

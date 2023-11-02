@@ -3,15 +3,16 @@ import {dirname, join, resolve} from 'path';
 import {defineConfig} from 'virmator/dist/compiled-base-configs/base-vite';
 
 export default defineConfig({forGitHubPages: false}, async (baseConfig) => {
-    const baseUrl: string =
-        (
-            await readJson(
-                resolve(__dirname, '..', '..', '..', '.not-committed', 'base-url.json'),
-                {
-                    throwErrors: false,
-                },
-            )
-        )?.['base-url'] || '';
+    const baseUrl: string = process.env['USE_BASE']
+        ? (
+              await readJson(
+                  resolve(__dirname, '..', '..', '..', '.not-committed', 'base-url.json'),
+                  {
+                      throwErrors: false,
+                  },
+              )
+          )?.['base-url'] || ''
+        : '';
 
     const extraDevServerConfig = {
         /**
