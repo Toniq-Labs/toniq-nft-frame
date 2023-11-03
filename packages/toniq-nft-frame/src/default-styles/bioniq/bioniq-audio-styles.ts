@@ -1,6 +1,6 @@
 import {noNativeFormStyles, noUserSelect} from '@toniq-labs/design-system';
 import {css, unsafeCSS} from 'element-vir';
-import {NftTypeEnum} from '../../iframe/nft-data';
+import {NftTypeEnum} from '../../iframe/nft-type';
 
 export const soundWaveCount = 84;
 export const soundWaveDefaultScale = 1;

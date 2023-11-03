@@ -1,5 +1,5 @@
 import {convertTemplateToString, css, html} from 'element-vir';
-import {NftTypeEnum} from '../../iframe/nft-data';
+import {NftTypeEnum} from '../../iframe/nft-type';
 import {
     animatedSoundWaveScale,
     bioniqAudioStyles,

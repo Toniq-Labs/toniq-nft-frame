@@ -25,13 +25,12 @@ export const ToniqDemoApp = defineElementNoInputs({
     `,
     renderCallback() {
         const cardTemplates = allExamplePaths.map(
-            (examplePath) =>
-                html`
-                    <${ToniqDemoCard.assign({
-                        nftUrl: examplePath,
-                        nftOrigin: childFrameUrl,
-                    })}></${ToniqDemoCard}>
-                `,
+            (examplePath) => html`
+                <${ToniqDemoCard.assign({
+                    nftUrl: examplePath,
+                    nftOrigin: childFrameUrl,
+                })}></${ToniqDemoCard}>
+            `,
         );
 
         return html`

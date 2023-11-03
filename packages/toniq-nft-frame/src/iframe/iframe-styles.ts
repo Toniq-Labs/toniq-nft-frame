@@ -1,5 +1,5 @@
 import {html} from 'element-vir';
-import {NftTypeEnum} from './nft-data';
+import {NftTypeEnum} from './nft-type';
 import {textNftPadding} from './style-constants';
 
 export const iframeStyleElement = html`

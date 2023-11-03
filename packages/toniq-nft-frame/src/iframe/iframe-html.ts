@@ -6,7 +6,8 @@ import {Dimensions, calculateRatio, clampDimensions, scaleToConstraints} from '.
 import {waitForScriptToLoad} from '../util/element';
 import {calculateOneLineHeight, getNftDimensions} from './get-nft-size';
 import {iframeStyleElement} from './iframe-styles';
-import {NftMetadata, NftTypeEnum, isNftTypeAudioLike, isNftTypeTextLike} from './nft-data';
+import {NftMetadata, isNftTypeAudioLike, isNftTypeTextLike} from './nft-data';
+import {NftTypeEnum} from './nft-type';
 import {textNftPadding} from './style-constants';
 
 export const thisScript = document.head.querySelector('script');

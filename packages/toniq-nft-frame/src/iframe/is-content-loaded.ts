@@ -1,5 +1,5 @@
 import {typedHasProperty} from '@augment-vir/common';
-import {NftTypeEnum} from './nft-data';
+import {NftTypeEnum} from './nft-type';
 
 function isImageLoaded() {
     const image = document.querySelector('img');

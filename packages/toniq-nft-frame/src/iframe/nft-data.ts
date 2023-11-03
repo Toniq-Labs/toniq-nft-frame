@@ -2,17 +2,7 @@ import {TemplateResult, convertTemplateToString, html} from 'element-vir';
 import {InternalDefaultedNftFrameConfig} from '../nft-frame-config';
 import {isJson} from '../util/json';
 import {LoadedNftData, loadNftData} from './nft-data-cache';
-
-export enum NftTypeEnum {
-    Html = 'html',
-    Text = 'text',
-    Json = 'json',
-    Svg = 'svg',
-    Image = 'image',
-    Video = 'video',
-    Audio = 'audio',
-    Pdf = 'pdf',
-}
+import {NftTypeEnum} from './nft-type';
 
 const nftTypesThatNeedTimeToLoad: ReadonlyArray<NftTypeEnum> = [
     NftTypeEnum.Html,

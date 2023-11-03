@@ -1,4 +1,4 @@
-import {NftTypeEnum} from '../iframe/nft-data';
+import {NftTypeEnum} from '../iframe/nft-type';
 
 export const nftTypesThatAllowInteraction: ReadonlyArray<NftTypeEnum> = [
     NftTypeEnum.Html,

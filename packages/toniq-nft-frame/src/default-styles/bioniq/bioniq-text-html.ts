@@ -1,6 +1,6 @@
 import {css, html, unsafeCSS} from 'element-vir';
 import {defineCssVars} from 'lit-css-vars';
-import {NftTypeEnum} from '../../iframe/nft-data';
+import {NftTypeEnum} from '../../iframe/nft-type';
 
 const extraHtmlColorVars = defineCssVars({
     'nft-text-color': 'black',
