@@ -29,8 +29,11 @@ const nftConfigConst = {
      * An HTML string that will be interpolated into the child NFT iframe. For any operations that
      * need to run before size calculations are completed, wrap them in a globally defined function
      * named executeBeforeSize inside a <script> element.
+     *
+     * Defaults to defaultFrameStylesExtraHtml.bioniq. To turn off this default, assign something
+     * explicitly to this property (undefined, empty string, a string with actual contents etc.).
      */
-    extraHtml: undefined as string | undefined | TemplateResult,
+    extraHtml: defaultFrameStylesExtraHtml.bioniq as string | undefined | TemplateResult,
     /** Query selector to use to determine an html result's size. */
     htmlSizeQuerySelector: undefined as string | undefined,
     /**
