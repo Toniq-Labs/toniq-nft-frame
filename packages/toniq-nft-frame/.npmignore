@@ -16,7 +16,6 @@
 bash-scripts/
 dist-docs/
 generated-config-*
-index.html
 test-files/
 ts.out/
 tsconfig*.json
