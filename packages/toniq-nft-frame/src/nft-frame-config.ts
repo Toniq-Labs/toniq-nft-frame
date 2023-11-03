@@ -15,7 +15,9 @@ const nftConfigConst = {
     /** The min NFT size constraints which the NFT will be resized to fit within. */
     min: undefined as Dimensions | undefined,
     /** How long to wait for the nft to load before calculating size. Defaults to 500 milliseconds. */
-    loadWait: undefined as {milliseconds: number} | undefined,
+    loadWaitDuration: {
+        milliseconds: 500,
+    },
     /** For hard-coding the final NFT size. Setting this can cause distortions. */
     forcedFinalNftSize: undefined as Dimensions | undefined,
     /**
