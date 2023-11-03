@@ -15,14 +15,14 @@
         "test": "tsc --noEmit"
     },
     "dependencies": {
-        "@augment-vir/browser": "^21.3.6",
-        "@augment-vir/common": "^21.3.6",
+        "@augment-vir/browser": "^21.5.0",
+        "@augment-vir/common": "^21.5.0",
         "@toniq-labs/toniq-nft-frame": "*",
-        "element-vir": "^16.5.0",
+        "element-vir": "^16.5.2",
         "vira": "^2.3.1"
     },
     "devDependencies": {
-        "@augment-vir/node-js": "^21.3.6",
+        "@augment-vir/node-js": "^21.5.0",
         "esbuild": "^0.19.5",
         "typescript": "^5.2.2",
         "vite": "^4.5.0",

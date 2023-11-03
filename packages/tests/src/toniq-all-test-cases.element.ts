@@ -28,6 +28,7 @@ export const ToniqAllTestCases = defineElementNoInputs({
                 <${ToniqNftFrame.assign({
                     ...testCase,
                     hideError: true,
+                    eagerLoading: true,
                 })}></${ToniqNftFrame}>
             `;
         });

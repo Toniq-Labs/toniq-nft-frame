@@ -12,5 +12,5 @@
         "./node_modules",
         "./test-files"
     ],
-    "extends": "../../configs/base-tsconfig.json"
+    "extends": "../../configs/tsconfig.base.json"
 }

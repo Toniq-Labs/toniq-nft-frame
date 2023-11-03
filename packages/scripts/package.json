@@ -8,11 +8,11 @@
         "test": "virmator test"
     },
     "dependencies": {
-        "@augment-vir/common": "^21.3.6",
-        "@augment-vir/node-js": "^21.3.6"
+        "@augment-vir/common": "^21.5.0",
+        "@augment-vir/node-js": "^21.5.0"
     },
     "devDependencies": {
-        "@augment-vir/chai": "^21.3.6",
+        "@augment-vir/chai": "^21.5.0",
         "@electrovir/nyc": "^15.1.0-fix0",
         "@istanbuljs/nyc-config-typescript": "^1.0.2",
         "@types/chai": "^4.3.9",
