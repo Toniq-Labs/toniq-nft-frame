@@ -47,8 +47,10 @@ const nftConfigConst = {
     allowScrolling: undefined as boolean | undefined,
     /** Set to true to disable lazy loading. */
     eagerLoading: undefined as boolean | undefined,
-    /** Timeout for each loading phase in milliseconds. */
-    timeoutMs: undefined as number | undefined,
+    /** Timeout for each loading phase in milliseconds. Defaults to 10 milliseconds. */
+    timeoutDuration: {
+        milliseconds: 10_000,
+    },
     /**
      * Set this to true to block usage of the persistent cache, which lasts longer than a single
      * session. Settings this to true will negatively impact performance but will make sure NFTs are
