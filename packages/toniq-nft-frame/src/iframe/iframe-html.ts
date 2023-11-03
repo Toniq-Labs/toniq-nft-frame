@@ -215,7 +215,7 @@ export async function setTemplateHtml(
         }
     }
 
-    await wait(nftConfig.loadWait?.milliseconds ?? 500);
+    await wait(nftConfig.loadWaitDuration.milliseconds);
 
     return htmlElement;
 }

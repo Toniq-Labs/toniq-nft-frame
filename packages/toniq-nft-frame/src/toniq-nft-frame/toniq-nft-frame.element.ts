@@ -9,7 +9,11 @@ import {
     unsafeCSS,
 } from 'element-vir';
 import {NftAllData} from '../iframe/iframe-messenger';
-import {NftFrameConfig} from '../nft-frame-config';
+import {
+    InternalDefaultedNftFrameConfig,
+    NftFrameConfig,
+    defaultNftConfig,
+} from '../nft-frame-config';
 import {toniqNftFrameTagName} from '../toniq-nft-frame-tag-name';
 import {Dimensions, clampDimensions, scaleToConstraints} from '../util/dimensions';
 import {MutatedClassesEnum} from './mutated-classes';
@@ -96,7 +100,9 @@ export const ToniqNftFrame = defineElement<NftFrameConfig>()({
              * Only place the transition on the hide class so that when the loading wrapper should
              * show up, it shows up instantly.
              */
-            transition: opacity 100ms, visibility 0s 200ms;
+            transition:
+                opacity 100ms,
+                visibility 0s 200ms;
         }
 
         :host(.${unsafeCSS(MutatedClassesEnum.HideLoading)}) .loading-wrapper {
@@ -129,7 +135,7 @@ export const ToniqNftFrame = defineElement<NftFrameConfig>()({
             justify-content: center;
         }
     `,
-    cleanupCallback({updateState, inputs}) {
+    cleanupCallback({updateState}) {
         /**
          * When an iframe is detached from the DOM, it completely loses all browsing context and
          * thus we need to completely reload it if this element is ever re-attached to the DOM.
@@ -139,7 +145,9 @@ export const ToniqNftFrame = defineElement<NftFrameConfig>()({
             iframeElement: undefined,
         });
     },
-    renderCallback({state, inputs, updateState, host, dispatch, events}) {
+    renderCallback({state, inputs: rawInputs, updateState, host, dispatch, events}) {
+        const inputs: InternalDefaultedNftFrameConfig = {...defaultNftConfig, ...rawInputs};
+
         state.childIframeLoading.updateTrigger(
             {
                 ...inputs,

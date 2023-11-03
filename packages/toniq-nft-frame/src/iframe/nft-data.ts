@@ -1,5 +1,5 @@
 import {TemplateResult, convertTemplateToString, html} from 'element-vir';
-import {NftFrameConfig} from '../nft-frame-config';
+import {InternalDefaultedNftFrameConfig} from '../nft-frame-config';
 import {isJson} from '../util/json';
 import {LoadedNftData, loadNftData} from './nft-data-cache';
 
@@ -140,7 +140,7 @@ export async function getNftMetadata({
     blockPersistentCache,
     allowConsoleLogs,
 }: Pick<
-    NftFrameConfig,
+    InternalDefaultedNftFrameConfig,
     'nftUrl' | 'blockAutoPlay' | 'blockPersistentCache' | 'allowConsoleLogs'
 >): Promise<NftMetadata> {
     const loadedNftData: LoadedNftData = await loadNftData(nftUrl, !blockPersistentCache);

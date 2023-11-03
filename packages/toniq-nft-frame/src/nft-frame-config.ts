@@ -1,9 +1,10 @@
-import {getObjectTypedKeys, pickObjectKeys} from '@augment-vir/common';
+import {Overwrite, getObjectTypedKeys, pickObjectKeys} from '@augment-vir/common';
 import {TemplateResult} from 'element-vir';
 import {Writable} from 'type-fest';
+import {defaultFrameStylesExtraHtml} from './default-styles/default-frame-styles';
 import {Dimensions} from './util/dimensions';
 
-const nftConfigConst = {
+export const defaultNftConfig = {
     nftUrl: '' as string,
     /**
      * URL for the child NFT iframe. If none are provided, this defaults to Toniq Lab's own NFT
@@ -62,27 +63,39 @@ const nftConfigConst = {
     hideError: undefined as boolean | undefined,
 } as const;
 
+type RequiredConfigKeys = 'nftUrl' | 'childFrameUrl';
+
 export type NftFrameConfig = Writable<
+    Overwrite<
+        Partial<typeof defaultNftConfig>,
+        Required<Pick<typeof defaultNftConfig, RequiredConfigKeys>>
+    >
+>;
+
+/**
+ * All values with defaults are no longer possibly undefined in this type (because they will always
+ * have a value).
+ */
+export type InternalDefaultedNftFrameConfig = Overwrite<
+    NftFrameConfig,
     {
-        [Prop in keyof typeof nftConfigConst as undefined extends (typeof nftConfigConst)[Prop]
+        [Prop in keyof typeof defaultNftConfig as undefined extends (typeof defaultNftConfig)[Prop]
             ? never
-            : Prop]: (typeof nftConfigConst)[Prop];
-    } & {
-        [Prop in keyof typeof nftConfigConst as undefined extends (typeof nftConfigConst)[Prop]
-            ? Prop
-            : never]?: (typeof nftConfigConst)[Prop];
+            : Prop]: (typeof defaultNftConfig)[Prop];
     }
 >;
 
-export function toChildNftConfig(NftConfig: NftFrameConfig & Record<PropertyKey, unknown>) {
+export function toChildNftConfig(
+    NftConfig: InternalDefaultedNftFrameConfig & Record<PropertyKey, unknown>,
+) {
     /**
      * Use pickObjectKeys a filter on the keys (rather than omitObjectKeys directly) to ensure that
      * we only pick expected keys, in case external sources include unexpected keys.
      */
     return pickObjectKeys(
         NftConfig,
-        getObjectTypedKeys(nftConfigConst).filter(
-            (key): key is keyof NftFrameConfig =>
+        getObjectTypedKeys(defaultNftConfig).filter(
+            (key): key is keyof InternalDefaultedNftFrameConfig =>
                 // don't send the child frame url to the frame
                 key !== 'childFrameUrl',
         ),
@@ -90,5 +103,3 @@ export function toChildNftConfig(NftConfig: NftFrameConfig & Record<PropertyKey,
 }
 
 export type NftConfigForChildIframe = ReturnType<typeof toChildNftConfig>;
-
-export const defaultTimeoutMs: number = 10_000;

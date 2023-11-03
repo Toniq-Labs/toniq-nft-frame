@@ -6,7 +6,7 @@ import {
     nftFrameIframeMessenger,
 } from '../iframe/iframe-messenger';
 import {doesNftNeedMoreTimeToLoadMaybe} from '../iframe/nft-data';
-import {NftFrameConfig, defaultTimeoutMs, toChildNftConfig} from '../nft-frame-config';
+import {InternalDefaultedNftFrameConfig, toChildNftConfig} from '../nft-frame-config';
 import {extractOrigin} from '../util/url';
 
 async function waitForFrameLoad(iframeElement: HTMLIFrameElement) {
@@ -25,7 +25,7 @@ export const defaultToniqNtState = {
         async updateCallback(
             triggers: {
                 isIframeReady: boolean;
-            } & NftFrameConfig,
+            } & InternalDefaultedNftFrameConfig,
             extraInputs: {
                 iframeElement: HTMLIFrameElement | undefined;
                 initIframe: (iframe: HTMLIFrameElement) => void;
@@ -50,15 +50,13 @@ export const defaultToniqNtState = {
 
                 const childOrigin = extractOrigin(triggers.childFrameUrl);
 
-                const timeoutMs: number = triggers.timeoutMs || defaultTimeoutMs;
-
                 const waiting = waitForFrameLoad(extraInputs.iframeElement);
 
                 extraInputs.initIframe(extraInputs.iframeElement);
                 await waiting;
 
                 await wrapPromiseInTimeout(
-                    timeoutMs,
+                    triggers.timeoutDuration.milliseconds,
                     handleChildIframe(
                         triggers,
                         {
@@ -67,7 +65,7 @@ export const defaultToniqNtState = {
                             iframeElement: extraInputs.iframeElement,
                         },
                         childOrigin,
-                        timeoutMs,
+                        triggers.timeoutDuration.milliseconds,
                     ),
                 );
             } catch (error) {
@@ -78,14 +76,8 @@ export const defaultToniqNtState = {
     }),
 };
 
-const retryDelaysMs = [
-    20,
-    100,
-    3000,
-] as const satisfies ReadonlyArray<number>;
-
 async function handleChildIframe(
-    inputs: NftFrameConfig,
+    inputs: InternalDefaultedNftFrameConfig,
     extraInputs: {
         initIframe: (iframe: HTMLIFrameElement) => void;
         onNftLoaded: (dimensions: NftAllData) => void;
