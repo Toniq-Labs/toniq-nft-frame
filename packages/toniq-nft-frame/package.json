@@ -26,7 +26,7 @@
     "dependencies": {
         "@augment-vir/browser": "^21.5.0",
         "@augment-vir/common": "^21.5.0",
-        "@toniq-labs/design-system": "^8.2.0",
+        "@toniq-labs/design-system": "^9.0.0",
         "element-vir": "^16.5.2",
         "interlocking-iframe-messenger": "^4.4.0",
         "lit-css-vars": "^3.0.2",
@@ -36,7 +36,7 @@
         "@augment-vir/browser-testing": "^21.5.0",
         "@augment-vir/node-js": "^21.5.0",
         "@electrovir/nyc": "^15.1.0-fix0",
-        "@open-wc/testing": "^3.2.1",
+        "@open-wc/testing": "^3.2.2",
         "@types/mocha": "^10.0.3",
         "@web/dev-server-esbuild": "^1.0.0",
         "@web/test-runner": "^0.18.0",
