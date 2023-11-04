@@ -18,6 +18,7 @@ import {toniqNftFrameTagName} from '../toniq-nft-frame-tag-name';
 import {Dimensions, clampDimensions, scaleToConstraints} from '../util/dimensions';
 import {MutatedClassesEnum} from './mutated-classes';
 import {shouldAllowInteraction} from './nft-interactions';
+import {ToniqDefaultError} from './toniq-default-error.element';
 import {defaultToniqNtState} from './toniq-nft-frame-state';
 
 export enum ToniqNftFrameSlotName {
