@@ -238,12 +238,12 @@ export const ToniqNftFrame = defineElement<NftFrameConfig>()({
             nftType: state.latestChildIframeData?.nftType,
         });
 
-        const clickCoverTemplate = isInteractionAllowed ? '' : defaultClickCover;
-
         const error: Error | undefined =
             !inputs.hideError && state.childIframeLoading.value instanceof Error
                 ? state.childIframeLoading.value
                 : undefined;
+
+        const clickCoverTemplate = isInteractionAllowed || error ? '' : defaultClickCover;
 
         const frameConstraintStyles = error
             ? css`
