@@ -20,6 +20,11 @@ import {MutatedClassesEnum} from './mutated-classes';
 import {shouldAllowInteraction} from './nft-interactions';
 import {defaultToniqNtState} from './toniq-nft-frame-state';
 
+export enum ToniqNftFrameSlotName {
+    Error = 'error',
+    Loading = 'loading',
+}
+
 export const ToniqNftFrame = defineElement<NftFrameConfig>()({
     tagName: toniqNftFrameTagName,
     stateInitStatic: defaultToniqNtState,
@@ -282,7 +287,7 @@ export const ToniqNftFrame = defineElement<NftFrameConfig>()({
                 !error,
                 html`
                     <div class="loading-wrapper">
-                        <slot name="loading">Loading...</slot>
+                        <slot name=${ToniqNftFrameSlotName.Loading}>Loading...</slot>
                     </div>
                 `,
             )}
@@ -291,7 +296,9 @@ export const ToniqNftFrame = defineElement<NftFrameConfig>()({
                     !!error,
                     html`
                         <div class="error-wrapper">
-                            <slot name="error">Error: ${error?.message}</slot>
+                            <slot name=${ToniqNftFrameSlotName.Error}>
+                                <${ToniqDefaultError}></${ToniqDefaultError}>
+                            </slot>
                         </div>
                     `,
                     iframeWithConstraintTemplate,
