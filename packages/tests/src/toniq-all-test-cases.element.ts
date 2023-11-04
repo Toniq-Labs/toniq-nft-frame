@@ -9,6 +9,7 @@ export const ToniqAllTestCases = defineElementNoInputs({
         :host {
             display: flex;
             flex-wrap: wrap;
+            align-items: flex-start;
         }
 
         ${ToniqNftFrame} {
@@ -27,7 +28,6 @@ export const ToniqAllTestCases = defineElementNoInputs({
             return html`
                 <${ToniqNftFrame.assign({
                     ...testCase,
-                    hideError: true,
                     eagerLoading: true,
                 })}></${ToniqNftFrame}>
             `;
