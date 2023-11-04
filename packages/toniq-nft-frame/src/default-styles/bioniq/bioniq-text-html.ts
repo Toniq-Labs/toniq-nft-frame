@@ -26,11 +26,6 @@ export const bioniqFrameHtmlForText = html`
                 font-size: 1.2em;
             }
 
-            html.nft-type-${unsafeCSS(NftTypeEnum.Text)} .text-overflow-overlay,
-            html.nft-type-${unsafeCSS(NftTypeEnum.Json)} .text-overflow-overlay {
-                display: block;
-            }
-
             html.nft-type-${unsafeCSS(NftTypeEnum.Text)} .text,
             html.nft-type-${unsafeCSS(NftTypeEnum.Json)} .text {
                 padding: 20px;
@@ -45,6 +40,10 @@ export const bioniqFrameHtmlForText = html`
 
             .text-overflow-overlay {
                 display: none;
+            }
+
+            html.nft-type-${unsafeCSS(NftTypeEnum.Text)} .text-overflow-overlay {
+                display: block;
                 position: fixed;
                 bottom: 0;
                 z-index: 99999;
@@ -55,19 +54,49 @@ export const bioniqFrameHtmlForText = html`
                     color-mix(
                             in srgb,
                             ${extraHtmlColorVars['nft-background-color'].value},
-                            transparent 0%
+                            rgba(255, 255, 255, 0) 0%
                         )
                         0%,
                     color-mix(
                             in srgb,
                             ${extraHtmlColorVars['nft-background-color'].value},
-                            transparent 20%
+                            rgba(255, 255, 255, 0) 20%
                         )
                         40%,
                     color-mix(
                             in srgb,
                             ${extraHtmlColorVars['nft-background-color'].value},
-                            transparent 100%
+                            rgba(255, 255, 255, 0) 100%
+                        )
+                        100%
+                );
+            }
+
+            html.nft-type-${unsafeCSS(NftTypeEnum.Json)} .text-overflow-overlay {
+                display: block;
+                position: fixed;
+                bottom: 0;
+                z-index: 99999;
+                height: 40px;
+                width: 100%;
+                background: linear-gradient(
+                    0deg,
+                    color-mix(
+                            in srgb,
+                            ${extraHtmlColorVars['nft-background-color'].value},
+                            rgba(0, 0, 0, 0) 0%
+                        )
+                        0%,
+                    color-mix(
+                            in srgb,
+                            ${extraHtmlColorVars['nft-background-color'].value},
+                            rgba(0, 0, 0, 0) 20%
+                        )
+                        40%,
+                    color-mix(
+                            in srgb,
+                            ${extraHtmlColorVars['nft-background-color'].value},
+                            rgba(0, 0, 0, 0) 100%
                         )
                         100%
                 );
