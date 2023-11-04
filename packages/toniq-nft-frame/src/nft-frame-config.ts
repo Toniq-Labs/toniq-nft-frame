@@ -17,7 +17,7 @@ export const defaultNftConfig = {
     min: undefined as Dimensions | undefined,
     /** How long to wait for the nft to load before calculating size. Defaults to 500 milliseconds. */
     loadWaitDuration: {
-        milliseconds: 500,
+        milliseconds: 500 as number,
     },
     /** For hard-coding the final NFT size. Setting this can cause distortions. */
     forcedFinalNftSize: undefined as Dimensions | undefined,
@@ -50,7 +50,7 @@ export const defaultNftConfig = {
     eagerLoading: undefined as boolean | undefined,
     /** Timeout for each loading phase in milliseconds. Defaults to 10 milliseconds. */
     timeoutDuration: {
-        milliseconds: 10_000,
+        milliseconds: 10_000 as number,
     },
     /**
      * Set this to true to block usage of the persistent cache, which lasts longer than a single
