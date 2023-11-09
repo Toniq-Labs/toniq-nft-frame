@@ -1,4 +1,5 @@
-import {Dimensions, ToniqNftFrame} from '@toniq-labs/toniq-nft-frame';
+import {Dimensions} from '@augment-vir/common';
+import {ToniqNftFrame} from '@toniq-labs/toniq-nft-frame';
 import {css, defineElement, html} from 'element-vir';
 import {noNativeFormStyles} from 'vira';
 import {childFrameUrl} from '../../data/child-frame-url';
