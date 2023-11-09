@@ -1,3 +1,4 @@
+export * from './default-styles/bioniq/toniq-bioniq-frame-error.element';
 export * from './default-styles/default-frame-styles';
 export * from './iframe/nft-data';
 export * from './iframe/nft-type';

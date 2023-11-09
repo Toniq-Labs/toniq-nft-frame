@@ -1,8 +1,8 @@
 import {BioniqRobot100Icon, ToniqIcon} from '@toniq-labs/design-system';
 import {css, defineElementNoInputs, html} from 'element-vir';
 
-export const ToniqDefaultError = defineElementNoInputs({
-    tagName: 'toniq-default-error',
+export const ToniqBioniqFrameError = defineElementNoInputs({
+    tagName: 'toniq-bioniq-frame-error',
     styles: css`
         :host {
             display: flex;
