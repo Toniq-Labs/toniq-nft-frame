@@ -1,11 +1,6 @@
-import {clamp, mapObjectValues, PartialAndNullable} from '@augment-vir/common';
+import {clamp, Dimensions, mapObjectValues, PartialAndNullable} from '@augment-vir/common';
 import {ReadonlyDeep} from 'type-fest';
 import {greaterThan, lessThan} from './number';
-
-export type Dimensions = {
-    width: number;
-    height: number;
-};
 
 const defaultBox: Dimensions = {
     width: 250, // 250 = idk we have to pick SOMETHING

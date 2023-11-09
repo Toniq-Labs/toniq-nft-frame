@@ -33,6 +33,7 @@ const rawTestCases: ReadonlyArray<
     {nftId: 'c2fe83b53f4eb0b8ba2b4748884727887f840332ef02f3f79b455fcf3a3d11ebi0'},
     {nftId: 'd4addab1fe2d349aa61d8e7e658a002fb7cc1dc1bac78bf3222f1291c395e8d1i0'},
     {nftId: 'f2fe86f6b0fd73a4f17cfb55a126fc22eb1c6c216cbe0df3f49e82acd27f7404i0'},
+    {nftId: '5880fde73f67425e330c130e2103b510b1b22280d32420ff1676de84926b71a2i0'},
     {nftId: 'invalid'},
     // cspell:enable
 ];

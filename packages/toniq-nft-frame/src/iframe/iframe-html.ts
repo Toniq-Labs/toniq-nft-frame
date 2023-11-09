@@ -1,8 +1,8 @@
-import {awaitedForEach, isTruthy, wait} from '@augment-vir/common';
+import {Dimensions, awaitedForEach, isTruthy, wait} from '@augment-vir/common';
 import {convertTemplateToString, html} from 'element-vir';
 import {NftConfigForChildIframe} from '../nft-frame-config';
 import {shouldAllowScrolling} from '../toniq-nft-frame/nft-interactions';
-import {Dimensions, calculateRatio, clampDimensions, scaleToConstraints} from '../util/dimensions';
+import {calculateRatio, clampDimensions, scaleToConstraints} from '../util/dimensions';
 import {waitForScriptToLoad} from '../util/element';
 import {calculateOneLineHeight, getNftDimensions} from './get-nft-size';
 import {iframeStyleElement} from './iframe-styles';

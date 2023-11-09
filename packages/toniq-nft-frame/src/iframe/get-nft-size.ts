@@ -1,6 +1,5 @@
-import {removeCommasFromNumberString, removePx, wrapInTry} from '@augment-vir/common';
+import {Dimensions, removeCommasFromNumberString, removePx, wrapInTry} from '@augment-vir/common';
 import {NftConfigForChildIframe} from '../nft-frame-config';
-import {Dimensions} from '../util/dimensions';
 import {NftTypeEnum} from './nft-type';
 
 function extractSvgSize(svgElement: SVGElement) {

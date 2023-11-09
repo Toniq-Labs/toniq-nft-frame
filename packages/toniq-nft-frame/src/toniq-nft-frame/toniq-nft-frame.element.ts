@@ -1,4 +1,4 @@
-import {addPx} from '@augment-vir/common';
+import {Dimensions, addPx} from '@augment-vir/common';
 import {
     css,
     defineElement,
@@ -8,6 +8,7 @@ import {
     renderIf,
     unsafeCSS,
 } from 'element-vir';
+import {ToniqBioniqFrameError} from '../default-styles/bioniq/toniq-bioniq-frame-error.element';
 import {NftAllData} from '../iframe/iframe-messenger';
 import {
     InternalDefaultedNftFrameConfig,
@@ -15,10 +16,9 @@ import {
     defaultNftConfig,
 } from '../nft-frame-config';
 import {toniqNftFrameTagName} from '../toniq-nft-frame-tag-name';
-import {Dimensions, clampDimensions, scaleToConstraints} from '../util/dimensions';
+import {clampDimensions, scaleToConstraints} from '../util/dimensions';
 import {MutatedClassesEnum} from './mutated-classes';
 import {shouldAllowInteraction} from './nft-interactions';
-import {ToniqDefaultError} from './toniq-default-error.element';
 import {defaultToniqNtState} from './toniq-nft-frame-state';
 
 export enum ToniqNftFrameSlotName {
@@ -298,7 +298,7 @@ export const ToniqNftFrame = defineElement<NftFrameConfig>()({
                     html`
                         <div class="error-wrapper">
                             <slot name=${ToniqNftFrameSlotName.Error}>
-                                <${ToniqDefaultError}></${ToniqDefaultError}>
+                                <${ToniqBioniqFrameError}></${ToniqBioniqFrameError}>
                             </slot>
                         </div>
                     `,

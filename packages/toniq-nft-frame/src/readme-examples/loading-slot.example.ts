@@ -1,5 +1,5 @@
 import {html} from 'element-vir';
-import {ToniqNftFrame} from '..';
+import {ToniqNftFrame, ToniqNftFrameSlotName} from '..';
 
 export function createTemplate() {
     return html`
@@ -7,7 +7,7 @@ export function createTemplate() {
             nftUrl: 'https://example.com/my-nft-url',
             childFrameUrl: 'https://example.com/iframe',
         })}>
-            <div slot="loading">My custom loading</div>
+            <div slot=${ToniqNftFrameSlotName.Loading}>My custom loading</div>
         </${ToniqNftFrame}>
     `;
 }

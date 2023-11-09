@@ -1,8 +1,7 @@
-import {Overwrite, getObjectTypedKeys, pickObjectKeys} from '@augment-vir/common';
+import {Dimensions, Overwrite, getObjectTypedKeys, pickObjectKeys} from '@augment-vir/common';
 import {TemplateResult} from 'element-vir';
 import {Writable} from 'type-fest';
 import {defaultFrameStylesExtraHtml} from './default-styles/default-frame-styles';
-import {Dimensions} from './util/dimensions';
 
 export const defaultNftConfig = {
     nftUrl: '' as string,

@@ -8,15 +8,15 @@
         "test": "virmator test"
     },
     "dependencies": {
-        "@augment-vir/common": "^21.5.0",
-        "@augment-vir/node-js": "^21.5.0"
+        "@augment-vir/common": "^21.6.0",
+        "@augment-vir/node-js": "^21.6.0"
     },
     "devDependencies": {
-        "@augment-vir/chai": "^21.5.0",
+        "@augment-vir/chai": "^21.6.0",
         "@electrovir/nyc": "^15.1.0-fix0",
         "@istanbuljs/nyc-config-typescript": "^1.0.2",
-        "@types/chai": "^4.3.9",
-        "@types/mocha": "^10.0.3",
+        "@types/chai": "^4.3.10",
+        "@types/mocha": "^10.0.4",
         "chai": "^4.3.10",
         "istanbul-smart-text-reporter": "^1.1.2",
         "mocha": "^10.2.0",
