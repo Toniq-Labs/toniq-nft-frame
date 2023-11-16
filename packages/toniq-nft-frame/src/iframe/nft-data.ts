@@ -1,5 +1,6 @@
 import {TemplateResult, convertTemplateToString, html} from 'element-vir';
 import {InternalDefaultedNftFrameConfig} from '../nft-frame-config';
+import {guessNftType} from '../util/guess-nft-type';
 import {isJson} from '../util/json';
 import {LoadedNftData, loadNftData} from './nft-data-cache';
 import {NftTypeEnum} from './nft-type';
@@ -30,7 +31,10 @@ export function isNftTypeAudioLike(nftType: NftTypeEnum): boolean {
     return audioLikeNftTypes.includes(nftType);
 }
 
-async function determineNftType(contentType: string, nftText: string): Promise<NftTypeEnum> {
+async function determineNftTypeFromHeaders(
+    contentType: string,
+    nftText: string,
+): Promise<NftTypeEnum> {
     if (contentType.includes('video')) {
         return NftTypeEnum.Video;
     } else if (contentType.includes('svg') || nftText.includes('<svg')) {
@@ -139,7 +143,20 @@ export async function getNftMetadata({
         throw new Error(`Failed to load '${nftUrl}'`);
     }
 
-    const nftType = await determineNftType(loadedNftData.contentType, loadedNftData.text);
+    const headerNftType = await determineNftTypeFromHeaders(
+        loadedNftData.contentType,
+        loadedNftData.text,
+    );
+
+    const guessedNftType = guessNftType(loadedNftData.text);
+
+    if (guessedNftType && guessedNftType !== headerNftType) {
+        console.warn(
+            `Headers say '${nftUrl}' is of type '${headerNftType}' but it looks like it's actually of type '${guessedNftType}'. Using '${guessedNftType}'.`,
+        );
+    }
+
+    const nftType = guessedNftType || headerNftType;
 
     const nftText = formatText(loadedNftData.text, nftType, !allowConsoleLogs);
 

@@ -34,6 +34,10 @@ const rawTestCases: ReadonlyArray<
     {nftId: 'd4addab1fe2d349aa61d8e7e658a002fb7cc1dc1bac78bf3222f1291c395e8d1i0'},
     {nftId: 'f2fe86f6b0fd73a4f17cfb55a126fc22eb1c6c216cbe0df3f49e82acd27f7404i0'},
     {nftId: '5880fde73f67425e330c130e2103b510b1b22280d32420ff1676de84926b71a2i0'},
+    {nftId: '323d4aabc64c2e9311d517c90b22ce5df64147373e9cad6d87056ac549b90a06i0'},
+    {nftId: '3ce065e417390448ab5cfbfe77d04c33c5d2f3b3129b7826b221402c4f4e5323i0'},
+    {nftId: '8ffe0eee5d4cde6d127daf6ebfdc6d59e651c5947b3c713144a2675fb2c2bfc3i0'},
+    {nftId: '16d72b768c5b7e0ea225195d9a8b7380accf5a95a655d9a7ec504426fad7dcfei0'},
     {nftId: 'invalid'},
     // cspell:enable
 ];
