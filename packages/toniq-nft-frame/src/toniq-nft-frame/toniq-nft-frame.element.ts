@@ -252,11 +252,11 @@ export const ToniqNftFrame = defineElement<NftFrameConfig>()({
                   max-height: 100%;
               `
             : clampedForcedOriginalNftSize
-            ? css`
-                  width: ${clampedForcedOriginalNftSize.width}px;
-                  height: ${clampedForcedOriginalNftSize.height}px;
-              `
-            : '';
+              ? css`
+                    width: ${clampedForcedOriginalNftSize.width}px;
+                    height: ${clampedForcedOriginalNftSize.height}px;
+                `
+              : '';
 
         const minSizeStyles = css`
             width: ${minConstraint?.width ?? 250}px;
