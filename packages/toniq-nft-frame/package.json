@@ -1,6 +1,6 @@
 {
     "name": "@toniq-labs/toniq-nft-frame",
-    "version": "2.3.0",
+    "version": "2.3.1",
     "homepage": "https://github.com/Toniq-Labs/nft-frame",
     "bugs": {
         "url": "https://github.com/Toniq-Labs/nft-frame/issues"
@@ -24,17 +24,17 @@
         "test": "virmator test-web"
     },
     "dependencies": {
-        "@augment-vir/browser": "^21.6.0",
-        "@augment-vir/common": "^21.6.0",
-        "@toniq-labs/design-system": "^10.2.0",
-        "element-vir": "^16.5.2",
+        "@augment-vir/browser": "^21.6.1",
+        "@augment-vir/common": "^21.6.1",
+        "@toniq-labs/design-system": "^12.0.0",
+        "element-vir": "^17.0.0",
         "interlocking-iframe-messenger": "^4.4.0",
         "lit-css-vars": "^3.0.2",
         "localforage-esm": "^1.10.2"
     },
     "devDependencies": {
-        "@augment-vir/browser-testing": "^21.6.0",
-        "@augment-vir/node-js": "^21.6.0",
+        "@augment-vir/browser-testing": "^21.6.1",
+        "@augment-vir/node-js": "^21.6.1",
         "@electrovir/nyc": "^15.1.0-fix0",
         "@open-wc/testing": "^4.0.0",
         "@types/mocha": "^10.0.4",

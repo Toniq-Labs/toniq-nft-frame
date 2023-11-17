@@ -1,6 +1,6 @@
 {
     "name": "@toniq-labs/toniq-nft-frame-mono-repo-root",
-    "version": "2.3.0",
+    "version": "2.3.1",
     "private": true,
     "license": "MIT",
     "author": {
@@ -44,7 +44,7 @@
         "prettier-plugin-sort-json": "^3.1.0",
         "prettier-plugin-toml": "^1.0.0",
         "typedoc": "^0.25.3",
-        "virmator": "^11.1.0"
+        "virmator": "^11.1.1"
     },
     "overrides": {
         "@open-wc/scoped-elements": "2.2.3",
