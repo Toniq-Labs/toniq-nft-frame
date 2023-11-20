@@ -1,6 +1,6 @@
 {
     "name": "@toniq-labs/toniq-nft-frame",
-    "version": "2.3.1",
+    "version": "2.3.2",
     "homepage": "https://github.com/Toniq-Labs/nft-frame",
     "bugs": {
         "url": "https://github.com/Toniq-Labs/nft-frame/issues"
@@ -24,17 +24,18 @@
         "test": "virmator test-web"
     },
     "dependencies": {
-        "@augment-vir/browser": "^21.6.1",
-        "@augment-vir/common": "^21.6.1",
-        "@toniq-labs/design-system": "^12.0.0",
+        "@augment-vir/browser": "^22.0.0",
+        "@augment-vir/common": "^22.0.0",
+        "@toniq-labs/design-system": "^12.0.1",
         "element-vir": "^17.0.0",
         "interlocking-iframe-messenger": "^4.4.0",
         "lit-css-vars": "^3.0.2",
-        "localforage-esm": "^1.10.2"
+        "localforage-esm": "^1.10.2",
+        "run-time-assertions": "^0.2.0"
     },
     "devDependencies": {
-        "@augment-vir/browser-testing": "^21.6.1",
-        "@augment-vir/node-js": "^21.6.1",
+        "@augment-vir/browser-testing": "^22.0.0",
+        "@augment-vir/node-js": "^22.0.0",
         "@electrovir/nyc": "^15.1.0-fix0",
         "@open-wc/testing": "^4.0.0",
         "@types/mocha": "^10.0.4",
@@ -43,9 +44,9 @@
         "@web/test-runner-commands": "^0.9.0",
         "@web/test-runner-playwright": "^0.11.0",
         "@web/test-runner-visual-regression": "^0.9.0",
-        "esbuild": "^0.19.5",
+        "esbuild": "^0.19.6",
         "istanbul-smart-text-reporter": "^1.1.2",
-        "type-fest": "^4.7.1",
+        "type-fest": "^4.8.1",
         "typescript": "^5.2.2",
         "vite": "^4.5.0",
         "vite-tsconfig-paths": "^4.2.1"

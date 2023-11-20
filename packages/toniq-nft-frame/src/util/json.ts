@@ -1,13 +1,9 @@
-import {
-    collapseWhiteSpace,
-    isRuntimeTypeOf,
-    JsonCompatibleValue,
-    parseJson,
-} from '@augment-vir/common';
+import {collapseWhiteSpace, JsonCompatibleValue, parseJson} from '@augment-vir/common';
+import {isRunTimeType} from 'run-time-assertions';
 
 export function isJson(text: string): boolean {
     const parsedJson = tryToParseJson(text);
-    return isRuntimeTypeOf(parsedJson, 'object') || isRuntimeTypeOf(parsedJson, 'array');
+    return isRunTimeType(parsedJson, 'object') || isRunTimeType(parsedJson, 'array');
 }
 
 export function tryToParseJson(text: string): JsonCompatibleValue {
