@@ -1,6 +1,6 @@
 {
     "name": "@toniq-labs/toniq-nft-frame-demo",
-    "version": "2.3.2",
+    "version": "2.3.3",
     "private": true,
     "license": "MIT",
     "author": {
@@ -18,13 +18,13 @@
         "@augment-vir/browser": "^22.0.0",
         "@augment-vir/common": "^22.0.0",
         "@toniq-labs/toniq-nft-frame": "*",
-        "element-vir": "^17.0.0",
-        "vira": "^2.5.2"
+        "element-vir": "^17.0.1",
+        "vira": "^2.5.3"
     },
     "devDependencies": {
         "@augment-vir/node-js": "^22.0.0",
         "esbuild": "^0.19.6",
-        "typescript": "^5.2.2",
+        "typescript": "5.2.2",
         "vite": "^4.5.0",
         "vite-tsconfig-paths": "^4.2.1"
     }
