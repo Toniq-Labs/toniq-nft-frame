@@ -1,6 +1,6 @@
 import {itCases} from '@augment-vir/browser-testing';
 import {NftTypeEnum} from '../iframe/nft-type';
-import {guessNftType} from './guess-nft-type';
+import {finalizeNftType, guessNftType} from './finalize-nft-type';
 
 async function guessNftTypeTestWrapper(url: string) {
     const responseText = await (await fetch(url)).text();
@@ -8,7 +8,7 @@ async function guessNftTypeTestWrapper(url: string) {
     return guessNftType(responseText);
 }
 
-describe(guessNftType.name, () => {
+describe(finalizeNftType.name, () => {
     itCases(guessNftTypeTestWrapper, [
         {
             it: 'predicts text for incorrect image type',

@@ -5,4 +5,4 @@ export * from './iframe/nft-type';
 export * from './nft-frame-config';
 export * from './toniq-nft-frame/toniq-nft-frame.element';
 export * from './util/dimensions';
-export * from './util/guess-nft-type';
+export * from './util/finalize-nft-type';

@@ -1,6 +1,6 @@
 import {TemplateResult, convertTemplateToString, html} from 'element-vir';
 import {InternalDefaultedNftFrameConfig} from '../nft-frame-config';
-import {guessNftType} from '../util/guess-nft-type';
+import {finalizeNftType} from '../util/finalize-nft-type';
 import {isJson} from '../util/json';
 import {LoadedNftData, loadNftData} from './nft-data-cache';
 import {NftTypeEnum} from './nft-type';
@@ -12,23 +12,6 @@ const nftTypesThatNeedTimeToLoad: ReadonlyArray<NftTypeEnum> = [
 
 export function doesNftNeedMoreTimeToLoadMaybe(nftType: NftTypeEnum): boolean {
     return nftTypesThatNeedTimeToLoad.includes(nftType);
-}
-
-const textLikeNftTypes: ReadonlyArray<NftTypeEnum> = [
-    NftTypeEnum.Text,
-    NftTypeEnum.Json,
-];
-
-const audioLikeNftTypes: ReadonlyArray<NftTypeEnum> = [
-    NftTypeEnum.Audio,
-];
-
-export function isNftTypeTextLike(nftType: NftTypeEnum): boolean {
-    return textLikeNftTypes.includes(nftType);
-}
-
-export function isNftTypeAudioLike(nftType: NftTypeEnum): boolean {
-    return audioLikeNftTypes.includes(nftType);
 }
 
 async function determineNftTypeFromHeaders(
@@ -148,21 +131,19 @@ export async function getNftMetadata({
         loadedNftData.text,
     );
 
-    const guessedNftType = guessNftType(loadedNftData.text);
+    const finalizedNftType = finalizeNftType(headerNftType, loadedNftData.text);
 
-    if (guessedNftType && guessedNftType !== headerNftType) {
+    if (finalizedNftType !== headerNftType) {
         console.warn(
-            `Headers say '${nftUrl}' is of type '${headerNftType}' but it looks like it's actually of type '${guessedNftType}'. Using '${guessedNftType}'.`,
+            `Headers say '${nftUrl}' is of type '${headerNftType}' but it looks like it's actually of type '${finalizedNftType}'. Using '${finalizedNftType}'.`,
         );
     }
 
-    const nftType = guessedNftType || headerNftType;
-
-    const nftText = formatText(loadedNftData.text, nftType, !allowConsoleLogs);
+    const nftText = formatText(loadedNftData.text, finalizedNftType, !allowConsoleLogs);
 
     const template = generateTemplateString({
-        nftText: nftText,
-        nftType: nftType,
+        nftText,
+        nftType: finalizedNftType,
         nftUrl: loadedNftData.blobUrl,
         blockAutoPlay: !!blockAutoPlay,
     });
@@ -170,7 +151,7 @@ export async function getNftMetadata({
     const nftMetadata: NftMetadata = {
         templateString: typeof template === 'string' ? template : convertTemplateToString(template),
         nftUrl: loadedNftData.blobUrl,
-        nftType,
+        nftType: finalizedNftType,
     };
 
     return nftMetadata;

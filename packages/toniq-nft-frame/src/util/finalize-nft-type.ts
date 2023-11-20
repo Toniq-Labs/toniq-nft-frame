@@ -1,4 +1,4 @@
-import {NftTypeEnum} from '../iframe/nft-type';
+import {NftTypeEnum, textBasedNftTypes} from '../iframe/nft-type';
 
 function isText(input: string): boolean {
     for (let index = 0; index < input.length; index++) {
@@ -53,4 +53,12 @@ export function guessNftType(rawNftText: string): NftTypeEnum | undefined {
     } else {
         return NftTypeEnum.Text;
     }
+}
+
+export function finalizeNftType(typeFromHeaders: NftTypeEnum, rawNftText: string): NftTypeEnum {
+    if (textBasedNftTypes.includes(typeFromHeaders)) {
+        return typeFromHeaders;
+    }
+
+    return guessNftType(rawNftText) || typeFromHeaders;
 }

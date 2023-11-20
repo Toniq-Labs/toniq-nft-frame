@@ -6,7 +6,7 @@ import {calculateRatio, clampDimensions, scaleToConstraints} from '../util/dimen
 import {waitForScriptToLoad} from '../util/element';
 import {calculateOneLineHeight, getNftDimensions} from './get-nft-size';
 import {iframeStyleElement} from './iframe-styles';
-import {NftMetadata, isNftTypeAudioLike, isNftTypeTextLike} from './nft-data';
+import {NftMetadata} from './nft-data';
 import {NftTypeEnum} from './nft-type';
 import {textNftPadding} from './style-constants';
 
@@ -24,6 +24,12 @@ function muteEverything() {
     });
 }
 
+const nftTypesThatNeedClamping: ReadonlyArray<NftTypeEnum> = [
+    NftTypeEnum.Text,
+    NftTypeEnum.Json,
+    NftTypeEnum.Audio,
+];
+
 function setScaledNftSize(
     nftConfig: NftConfigForChildIframe,
     nftType: NftTypeEnum,
@@ -36,10 +42,9 @@ function setScaledNftSize(
         box: nftConfig.forcedFinalNftSize ?? originalNftDimensions,
     } as const;
 
-    const newNftDimensions: Dimensions =
-        isNftTypeTextLike(nftType) || isNftTypeAudioLike(nftType)
-            ? clampDimensions(scaleInputs)
-            : scaleToConstraints(scaleInputs);
+    const newNftDimensions: Dimensions = nftTypesThatNeedClamping.includes(nftType)
+        ? clampDimensions(scaleInputs)
+        : scaleToConstraints(scaleInputs);
 
     const ratio = calculateRatio(scaleInputs);
 
@@ -98,7 +103,7 @@ function setScaledNftSize(
             height: ratio * forcedScales.height,
         };
     } else if (
-        isNftTypeTextLike(nftType) &&
+        nftTypesThatNeedClamping.includes(nftType) &&
         originalNftDimensions.height < newNftDimensions.height
     ) {
         const widthRatio = newNftDimensions.width / originalNftDimensions.width;

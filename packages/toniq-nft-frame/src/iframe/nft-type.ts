@@ -1,10 +1,18 @@
 export enum NftTypeEnum {
     Html = 'html',
-    Text = 'text',
     Json = 'json',
     Svg = 'svg',
-    Image = 'image',
-    Video = 'video',
+    Text = 'text',
+
     Audio = 'audio',
+    Image = 'image',
     Pdf = 'pdf',
+    Video = 'video',
 }
+
+export const textBasedNftTypes: ReadonlyArray<NftTypeEnum> = [
+    NftTypeEnum.Html,
+    NftTypeEnum.Json,
+    NftTypeEnum.Svg,
+    NftTypeEnum.Text,
+];
