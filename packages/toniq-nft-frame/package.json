@@ -26,7 +26,7 @@
     "dependencies": {
         "@augment-vir/browser": "^22.1.0",
         "@augment-vir/common": "^22.1.0",
-        "@toniq-labs/design-system": "^13.0.0",
+        "@toniq-labs/design-system": "^13.0.2",
         "element-vir": "^17.0.3",
         "interlocking-iframe-messenger": "^4.4.1",
         "lit-css-vars": "^3.0.7",
