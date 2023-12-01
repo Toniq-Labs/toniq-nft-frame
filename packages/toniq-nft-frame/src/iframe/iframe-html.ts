@@ -48,7 +48,7 @@ function setScaledNftSize(
 
     const ratio = calculateRatio(scaleInputs);
 
-    if (ratio > 3) {
+    if (ratio > 1.1) {
         htmlElement.classList.add('pixelated');
     }
 
