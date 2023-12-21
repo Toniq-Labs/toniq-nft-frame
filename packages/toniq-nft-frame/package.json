@@ -1,6 +1,6 @@
 {
     "name": "@toniq-labs/toniq-nft-frame",
-    "version": "2.3.7",
+    "version": "2.3.8",
     "homepage": "https://github.com/Toniq-Labs/nft-frame",
     "bugs": {
         "url": "https://github.com/Toniq-Labs/nft-frame/issues"
@@ -26,7 +26,6 @@
     "dependencies": {
         "@augment-vir/browser": "^22.1.1",
         "@augment-vir/common": "^22.1.1",
-        "@toniq-labs/design-system": "^14.0.0",
         "interlocking-iframe-messenger": "^4.4.1",
         "lit-css-vars": "^3.0.7",
         "localforage-esm": "^1.10.2",
@@ -51,7 +50,8 @@
         "vite-tsconfig-paths": "^4.2.2"
     },
     "peerDependencies": {
-        "element-vir": ">17"
+        "@toniq-labs/design-system": ">=13.0.0",
+        "element-vir": ">=17"
     },
     "publishConfig": {
         "access": "public"
