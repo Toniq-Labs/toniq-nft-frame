@@ -23,7 +23,7 @@
     },
     "devDependencies": {
         "@augment-vir/node-js": "^22.1.1",
-        "esbuild": "^0.19.9",
+        "esbuild": "^0.19.10",
         "typescript": "5.2.2",
         "vite": "^4.5.0",
         "vite-tsconfig-paths": "^4.2.2"

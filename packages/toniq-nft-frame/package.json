@@ -26,7 +26,7 @@
     "dependencies": {
         "@augment-vir/browser": "^22.1.1",
         "@augment-vir/common": "^22.1.1",
-        "@toniq-labs/design-system": "^13.0.2",
+        "@toniq-labs/design-system": "^14.0.0",
         "interlocking-iframe-messenger": "^4.4.1",
         "lit-css-vars": "^3.0.7",
         "localforage-esm": "^1.10.2",
@@ -43,7 +43,7 @@
         "@web/test-runner-commands": "^0.9.0",
         "@web/test-runner-playwright": "^0.11.0",
         "@web/test-runner-visual-regression": "^0.9.0",
-        "esbuild": "^0.19.9",
+        "esbuild": "^0.19.10",
         "istanbul-smart-text-reporter": "^1.1.3",
         "type-fest": "^4.8.3",
         "typescript": "5.2.2",
