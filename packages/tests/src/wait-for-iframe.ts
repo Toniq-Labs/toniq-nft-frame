@@ -1,17 +1,23 @@
-import {waitForCondition} from '@augment-vir/common';
+import {waitUntilTruthy} from '@augment-vir/common';
 import {testIframeUrl} from './test-cases';
 
 export async function waitForIframe(): Promise<boolean> {
-    await waitForCondition({
-        async conditionCallback() {
+    await waitUntilTruthy(
+        async () => {
             const result = await fetch(testIframeUrl);
 
             return result.ok;
         },
-        intervalMs: 100,
-        timeoutMs: 10_000,
-        timeoutMessage: `Child iframe URL ('${testIframeUrl}') never became responsive.`,
-    });
+        `Child iframe URL ('${testIframeUrl}') never became responsive.`,
+        {
+            interval: {
+                milliseconds: 100,
+            },
+            timeout: {
+                milliseconds: 10_000,
+            },
+        },
+    );
 
     return true;
 }

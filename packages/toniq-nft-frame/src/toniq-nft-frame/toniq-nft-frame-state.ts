@@ -65,7 +65,7 @@ export const defaultToniqNtState = {
                             iframeElement: extraInputs.iframeElement,
                         },
                         childOrigin,
-                        triggers.timeoutDuration.milliseconds,
+                        triggers.timeoutDuration,
                     ),
                 );
             } catch (error) {
@@ -86,7 +86,9 @@ async function handleChildIframe(
         hostElement: HTMLElement;
     },
     childOrigin: string,
-    timeoutMs: number,
+    timeout: {
+        milliseconds: number;
+    },
 ): Promise<void> {
     const nftConfigForIframe = toChildNftConfig(inputs);
     let latestNftData: NftAllData | undefined | Error;
@@ -98,10 +100,8 @@ async function handleChildIframe(
                 await nftFrameIframeMessenger.sendMessageToChild({
                     childOrigin,
                     iframeElement: extraInputs.iframeElement,
-                    message: {
-                        type: NftIframeMessageTypeEnum.LoadNft,
-                        data: nftConfigForIframe,
-                    },
+                    type: NftIframeMessageTypeEnum.LoadNft,
+                    data: nftConfigForIframe,
                     verifyChildData(data) {
                         return !!(
                             data &&
@@ -111,7 +111,7 @@ async function handleChildIframe(
                             data.nftUrl
                         );
                     },
-                    timeoutMs,
+                    timeout,
                 })
             ).data;
 

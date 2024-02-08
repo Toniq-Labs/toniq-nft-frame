@@ -1,6 +1,6 @@
 import {Dimensions, PropertyValueType} from '@augment-vir/common';
 import {
-    MessageDataBase,
+    BaseMessageData,
     MessageDirectionEnum,
     createIframeMessenger,
 } from 'interlocking-iframe-messenger';
@@ -20,7 +20,7 @@ export type NftAllData = NftMetadata & {
 };
 
 type CreateMessageData<
-    MessageData extends Record<NftIframeMessageTypeEnum, PropertyValueType<MessageDataBase>>,
+    MessageData extends Record<NftIframeMessageTypeEnum, PropertyValueType<BaseMessageData>>,
 > = MessageData;
 
 export type MessageData = CreateMessageData<{
