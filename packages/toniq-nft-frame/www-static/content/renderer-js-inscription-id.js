@@ -24,13 +24,13 @@ async function render(size, ...inscriptionIds) {
          * transparency edge render artifacts, like grey borders. As long as this image gets 1 pixel
          * rendered on screen for 1 frame, the artifacts will go away.
          */
-        const resizeArtifactFix = `
-        <img
-            class="full-size"
-            onload="this.remove()"
-            src="${generateCombinedImageUrl(size, base64Images, true)}"
-        />
-    `;
+        const resizeArtifactFix = /* HTML */ `
+            <img
+                class="full-size"
+                onload="this.remove()"
+                src="${generateCombinedImageUrl(size, base64Images, true)}"
+            />
+        `;
 
         return /* HTML */ `
             <style>
@@ -51,6 +51,7 @@ async function render(size, ...inscriptionIds) {
                 }
                 img {
                     display: block;
+                    width: 100%;
                 }
             </style>
             ${resizeArtifactFix}
