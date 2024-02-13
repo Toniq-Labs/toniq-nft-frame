@@ -24,16 +24,16 @@
         "test": "virmator test-web"
     },
     "dependencies": {
-        "@augment-vir/browser": "^23.2.0",
-        "@augment-vir/common": "^23.2.0",
+        "@augment-vir/browser": "^23.3.2",
+        "@augment-vir/common": "^23.3.2",
         "interlocking-iframe-messenger": "^5.0.0",
         "lit-css-vars": "^3.0.8",
         "localforage-esm": "^1.10.2",
         "run-time-assertions": "^0.3.0"
     },
     "devDependencies": {
-        "@augment-vir/browser-testing": "^23.2.0",
-        "@augment-vir/node-js": "^23.2.0",
+        "@augment-vir/browser-testing": "^23.3.2",
+        "@augment-vir/node-js": "^23.3.2",
         "@electrovir/nyc": "^15.1.0-fix0",
         "@open-wc/testing": "^4.0.0",
         "@types/mocha": "^10.0.6",

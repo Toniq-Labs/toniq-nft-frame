@@ -13,13 +13,13 @@
         "test": "exit 0"
     },
     "dependencies": {
-        "@augment-vir/common": "^23.2.0",
+        "@augment-vir/common": "^23.3.2",
         "@toniq-labs/toniq-nft-frame": "*",
         "element-vir": "*",
         "run-time-assertions": "^0.3.0"
     },
     "devDependencies": {
-        "@augment-vir/node-js": "^23.2.0",
+        "@augment-vir/node-js": "^23.3.2",
         "@open-wc/testing": "^4.0.0",
         "@types/mocha": "^10.0.6",
         "@web/dev-server-esbuild": "^1.0.2",
