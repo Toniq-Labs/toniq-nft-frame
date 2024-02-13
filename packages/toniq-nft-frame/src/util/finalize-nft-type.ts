@@ -14,7 +14,7 @@ function isText(input: string): boolean {
 
 function isHtml(input: string): boolean {
     const trimmed = input.trim().toLowerCase();
-    return trimmed.startsWith('<html') || trimmed.startsWith('<!doctype html>');
+    return !!trimmed.match(/\<\w+/) || trimmed.startsWith('<!doctype html>');
 }
 
 function isSvg(input: string): boolean {
