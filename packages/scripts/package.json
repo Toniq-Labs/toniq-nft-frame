@@ -1,6 +1,6 @@
 {
     "name": "@toniq-labs/toniq-nft-frame-scripts",
-    "version": "3.0.2",
+    "version": "3.0.3",
     "private": true,
     "scripts": {
         "compile": "virmator compile && npm run execute",
@@ -8,18 +8,18 @@
         "test": "virmator test"
     },
     "dependencies": {
-        "@augment-vir/common": "^23.3.2",
-        "@augment-vir/node-js": "^23.3.2"
+        "@augment-vir/common": "^23.3.4",
+        "@augment-vir/node-js": "^23.3.4"
     },
     "devDependencies": {
-        "@augment-vir/chai": "^23.3.2",
+        "@augment-vir/chai": "^23.3.4",
         "@electrovir/nyc": "^15.1.0-fix0",
         "@istanbuljs/nyc-config-typescript": "^1.0.2",
         "@types/chai": "^4.3.11",
         "@types/mocha": "^10.0.6",
-        "@types/node": "^20.11.17",
+        "@types/node": "^20.11.19",
         "chai": "^4.3.10",
-        "istanbul-smart-text-reporter": "^1.1.3",
+        "istanbul-smart-text-reporter": "^1.1.4",
         "mocha": "^10.3.0",
         "mocha-spec-reporter-with-file-names": "^0.0.3",
         "ts-node": "^10.9.2",
